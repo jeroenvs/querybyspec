@@ -1,4 +1,4 @@
-package org.jeroen.ddd.repository.jpa.translation;
+package org.jeroen.ddd.repository.jpa;
 
 import java.io.IOException;
 
@@ -16,20 +16,20 @@ import org.springframework.core.type.filter.AssignableTypeFilter;
 import org.springframework.core.type.filter.TypeFilter;
 
 /**
- * Default implementation of {@link SpecificationToPredicateTranslatorFactory}.
+ * Default implementation of {@link SpecificationTranslatorFactory}.
  * 
  * @author Jeroen van Schagen
  * @since 30-12-2010
  */
-public class SpecificationToPredicateTranslatorFactoryImpl implements SpecificationToPredicateTranslatorFactory, ApplicationContextAware {
+public class SpecificationTranslatorFactoryImpl implements SpecificationTranslatorFactory, ApplicationContextAware {
     private ApplicationContext applicationContext;
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public SpecificationToPredicateTranslator createTranslator() {
-        SpecificationToPredicateTranslator translator = new SpecificationToPredicateTranslatorImpl();
+    public SpecificationTranslator createTranslator() {
+        SpecificationTranslator translator = new SpecificationTranslatorImpl();
         translator.registerConverter(new EqualConverter());
         translator.registerConverter(new NotConverter(translator));
         translator.registerConverter(new AndConverter(translator));
@@ -41,7 +41,7 @@ public class SpecificationToPredicateTranslatorFactoryImpl implements Specificat
      * {@inheritDoc}
      */
     @Override
-    public SpecificationToPredicateTranslator createTranslator(String basePackage) {
+    public SpecificationTranslator createTranslator(String basePackage) {
         return registerAnnotatedConverters(createTranslator(), basePackage);
     }
 
@@ -52,7 +52,7 @@ public class SpecificationToPredicateTranslatorFactoryImpl implements Specificat
      * @param basePackage the base package of our custom converters
      * @return same translator instance, used for chaining
      */
-    private SpecificationToPredicateTranslator registerAnnotatedConverters(SpecificationToPredicateTranslator translator, String basePackage) {
+    private SpecificationTranslator registerAnnotatedConverters(SpecificationTranslator translator, String basePackage) {
         ClassPathScanningCandidateComponentProvider scanner = new ClassPathScanningCandidateComponentProvider(false);
         scanner.addIncludeFilter(new IsRegisterableConverterFilter());
         for (BeanDefinition bd : scanner.findCandidateComponents(basePackage)) {
@@ -72,7 +72,7 @@ public class SpecificationToPredicateTranslatorFactoryImpl implements Specificat
      * @param converterClass the type of our converter
      * @return a new or existing converter instance
      */
-    private SpecificationToPredicateConverter<?, ?> getConverterOfType(Class<?> converterClass) {
+    private SpecificationConverter<?, ?> getConverterOfType(Class<?> converterClass) {
         Object instance = null;
         try {
             // First attempt the find the converter in our application context
@@ -81,7 +81,7 @@ public class SpecificationToPredicateTranslatorFactoryImpl implements Specificat
             // Whenever no matching bean is found, we return a new nullary instance
             instance = BeanUtils.instantiate(converterClass);
         }
-        return (SpecificationToPredicateConverter<?, ?>) instance;
+        return (SpecificationConverter<?, ?>) instance;
     }
 
     /**
@@ -94,8 +94,8 @@ public class SpecificationToPredicateTranslatorFactoryImpl implements Specificat
 
     // Matches annotated specification-to-predicate converters
     private static class IsRegisterableConverterFilter implements TypeFilter {
-        private final TypeFilter converterTypeFilter = new AssignableTypeFilter(SpecificationToPredicateConverter.class);
-        private final TypeFilter registeredAnnotationFilter = new AnnotationTypeFilter(RegisteredAutomatically.class);
+        private final TypeFilter converterTypeFilter = new AssignableTypeFilter(SpecificationConverter.class);
+        private final TypeFilter registeredAnnotationFilter = new AnnotationTypeFilter(Registered.class);
 
         /**
          * {@inheritDoc}

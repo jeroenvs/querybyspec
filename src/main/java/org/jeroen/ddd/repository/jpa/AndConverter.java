@@ -1,4 +1,4 @@
-package org.jeroen.ddd.repository.jpa.translation;
+package org.jeroen.ddd.repository.jpa;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -8,10 +8,10 @@ import javax.persistence.criteria.Root;
 import org.jeroen.ddd.specification.AndSpecification;
 
 
-public class AndConverter implements SpecificationToPredicateConverter<AndSpecification<Object>, Object> {
-    private final SpecificationToPredicateTranslator translator;
+public class AndConverter implements SpecificationConverter<AndSpecification<Object>, Object> {
+    private final SpecificationTranslator translator;
 
-    public AndConverter(SpecificationToPredicateTranslator translator) {
+    public AndConverter(SpecificationTranslator translator) {
         super();
         this.translator = translator;
     }

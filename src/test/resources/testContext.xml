@@ -38,14 +38,13 @@
         <property name="entityManagerFactory" ref="entityManagerFactory" />
     </bean>
     
-    <bean id="specificationTranslatorFactory" class="nl.mad.hactar.repository.jpa.translation.SpecificationToPredicateTranslatorFactoryImpl" />
-    <bean id="specificationTranslator" factory-bean="specificationTranslatorFactory" factory-method="createTranslator">
+    <bean id="translatorFactory" class="org.jeroen.ddd.repository.jpa.SpecificationTranslatorFactoryImpl" />
+    <bean factory-bean="translatorFactory" factory-method="createTranslator">
     	<!-- Base package of our custom converters -->
-    	<constructor-arg value="nl.mad.hactar.repository.jpa" />
+    	<constructor-arg value="org.jeroen.ddd.repository.jpa" />
     </bean>
     
     <context:annotation-config />
-    <context:component-scan base-package="nl.mad.hactar" />
+    <context:component-scan base-package="org.jeroen.ddd" />
     
-
 </beans>

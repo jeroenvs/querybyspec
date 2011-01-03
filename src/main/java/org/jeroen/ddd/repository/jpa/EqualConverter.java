@@ -1,4 +1,4 @@
-package org.jeroen.ddd.repository.jpa.translation;
+package org.jeroen.ddd.repository.jpa;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -8,7 +8,7 @@ import javax.persistence.criteria.Root;
 import org.jeroen.ddd.specification.EqualSpecification;
 
 
-public class EqualConverter implements SpecificationToPredicateConverter<EqualSpecification<Object>, Object> {
+public class EqualConverter implements SpecificationConverter<EqualSpecification<Object>, Object> {
 
     /**
      * {@inheritDoc}

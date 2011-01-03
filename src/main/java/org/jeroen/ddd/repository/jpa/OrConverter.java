@@ -1,4 +1,4 @@
-package org.jeroen.ddd.repository.jpa.translation;
+package org.jeroen.ddd.repository.jpa;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -8,10 +8,10 @@ import javax.persistence.criteria.Root;
 import org.jeroen.ddd.specification.OrSpecification;
 
 
-public class OrConverter implements SpecificationToPredicateConverter<OrSpecification<Object>, Object> {
-    private final SpecificationToPredicateTranslator translator;
+public class OrConverter implements SpecificationConverter<OrSpecification<Object>, Object> {
+    private final SpecificationTranslator translator;
 
-    public OrConverter(SpecificationToPredicateTranslator translator) {
+    public OrConverter(SpecificationTranslator translator) {
         super();
         this.translator = translator;
     }

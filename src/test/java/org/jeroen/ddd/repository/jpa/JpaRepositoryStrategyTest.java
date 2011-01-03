@@ -12,7 +12,7 @@ import javax.persistence.PersistenceContext;
 
 import org.jeroen.ddd.domain.Post;
 import org.jeroen.ddd.repository.jpa.JpaRepositoryStrategy;
-import org.jeroen.ddd.repository.jpa.translation.SpecificationToPredicateTranslator;
+import org.jeroen.ddd.repository.jpa.SpecificationTranslator;
 import org.jeroen.ddd.specification.EqualSpecification;
 import org.jeroen.ddd.specification.Specification;
 import org.junit.Assert;
@@ -33,7 +33,7 @@ public class JpaRepositoryStrategyTest {
     @PersistenceContext
     private EntityManager em;
     @Resource
-    private SpecificationToPredicateTranslator translator;
+    private SpecificationTranslator translator;
 
     // Entities being used for testing
     private Post post;

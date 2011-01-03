@@ -1,4 +1,4 @@
-package org.jeroen.ddd.repository.jpa.translation;
+package org.jeroen.ddd.repository.jpa;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -8,10 +8,10 @@ import javax.persistence.criteria.Root;
 import org.jeroen.ddd.specification.NotSpecification;
 
 
-public class NotConverter implements SpecificationToPredicateConverter<NotSpecification<Object>, Object> {
-    private final SpecificationToPredicateTranslator translator;
+public class NotConverter implements SpecificationConverter<NotSpecification<Object>, Object> {
+    private final SpecificationTranslator translator;
 
-    public NotConverter(SpecificationToPredicateTranslator translator) {
+    public NotConverter(SpecificationTranslator translator) {
         super();
         this.translator = translator;
     }

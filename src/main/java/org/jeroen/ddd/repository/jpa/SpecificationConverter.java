@@ -9,26 +9,25 @@ import org.jeroen.ddd.specification.Specification;
 
 
 /**
- * Java Persistence API specific implementation of {@link Specification}.
- * Specifications that implement this interface are capable of translating
- * themselves into a {@link Predicate}, which enforces only satisfying entities
- * to be returned.
+ * Specifies the conversion logic of a {@link Specification} into {@link Predicate}.
+ * 
+ * @param <T> type of entity, used in the specification
+ * @param <S> type of specification being converted
  * 
  * @author Jeroen van Schagen
  * @since 28-12-2010
- * 
- * @param <T> type of entity represented in our specification logic
  */
-public interface PredicateSpecification<T> extends Specification<T> {
+public interface SpecificationConverter<S extends Specification<T>, T> {
 
     /**
-     * Construct a {@link Predicate} that enforces this specification's criteria.
+     * Convert a {@link Specification} into a Java Persistence API {@link Predicate}.
      * 
+     * @param specification our business specification being converted
      * @param root path to the root of our query
      * @param cq query that will hold our specification criteria
      * @param cb criteria builder, used to construct predicates
      * @return the converted predicate
      */
-    Predicate toPredicate(Root<T> root, CriteriaQuery<?> cq, CriteriaBuilder cb);
+    Predicate convert(S specification, Root<T> root, CriteriaQuery<?> cq, CriteriaBuilder cb);
 
 }

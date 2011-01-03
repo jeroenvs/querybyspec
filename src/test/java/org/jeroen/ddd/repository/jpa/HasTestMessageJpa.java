@@ -7,7 +7,7 @@ import javax.persistence.criteria.Root;
 
 import org.jeroen.ddd.domain.Post;
 import org.jeroen.ddd.domain.Post_;
-import org.jeroen.ddd.repository.jpa.PredicateSpecification;
+import org.jeroen.ddd.repository.jpa.JpaSpecification;
 
 
 /**
@@ -15,7 +15,7 @@ import org.jeroen.ddd.repository.jpa.PredicateSpecification;
  * @author Jeroen van Schagen
  * @since 28-12-2010
  */
-public class HasTestMessageJpa extends HasTestMessage implements PredicateSpecification<Post> {
+public class HasTestMessageJpa extends HasTestMessage implements JpaSpecification<Post> {
 
     /**
      * {@inheritDoc}

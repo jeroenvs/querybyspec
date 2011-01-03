@@ -3,17 +3,13 @@ package org.jeroen.ddd.repository.jpa;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
-
 import org.jeroen.ddd.repository.RepositoryStrategy;
-import org.jeroen.ddd.repository.jpa.translation.SpecificationToPredicateTranslator;
 import org.jeroen.ddd.specification.Specification;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
 
 /**
@@ -31,7 +27,7 @@ public class JpaRepositoryStrategy<T> implements RepositoryStrategy<T> {
     /** Java persistence manager, used to access and modify entities in our data storage. */
     private EntityManager entityManager;
     /** Translator used to convert our domain specifications into persistence predicates. */
-    private SpecificationToPredicateTranslator translator;
+    private SpecificationTranslator translator;
 
     /**
      * Construct a new {@link JpaRepositoryStrategy}.
@@ -110,13 +106,11 @@ public class JpaRepositoryStrategy<T> implements RepositoryStrategy<T> {
 
     // Attribute access
 
-    @PersistenceContext
     public void setEntityManager(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
 
-    @Autowired
-    public void setTranslator(SpecificationToPredicateTranslator translator) {
+    public void setTranslator(SpecificationTranslator translator) {
         this.translator = translator;
     }
 

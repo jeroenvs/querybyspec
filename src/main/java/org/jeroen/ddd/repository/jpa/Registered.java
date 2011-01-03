@@ -1,4 +1,4 @@
-package org.jeroen.ddd.repository.jpa.translation;
+package org.jeroen.ddd.repository.jpa;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Target;
@@ -8,6 +8,6 @@ import java.lang.annotation.Target;
  * @author Jeroen van Schagen
  */
 @Target(value = { ElementType.TYPE })
-public @interface RegisteredAutomatically {
+public @interface Registered {
 
 }

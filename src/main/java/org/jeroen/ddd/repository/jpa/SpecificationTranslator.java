@@ -1,4 +1,4 @@
-package org.jeroen.ddd.repository.jpa.translation;
+package org.jeroen.ddd.repository.jpa;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -16,7 +16,7 @@ import org.jeroen.ddd.specification.Specification;
  * @author Jeroen van Schagen
  * @since 28-12-2010
  */
-public interface SpecificationToPredicateTranslator {
+public interface SpecificationTranslator {
 
     /**
      * Translate some {@link Specification} into a new {@link Predicate}, enforcing the same selection criteria
@@ -38,6 +38,6 @@ public interface SpecificationToPredicateTranslator {
      * @param converter new converter instance that should be registered
      * @return the manager instance, used to enable chaining
      */
-    SpecificationToPredicateTranslatorImpl registerConverter(SpecificationToPredicateConverter<?, ?> converter);
+    SpecificationTranslatorImpl registerConverter(SpecificationConverter<?, ?> converter);
 
 }

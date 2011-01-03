@@ -7,8 +7,8 @@ import javax.persistence.criteria.Root;
 
 import org.jeroen.ddd.domain.Post;
 import org.jeroen.ddd.domain.Post_;
-import org.jeroen.ddd.repository.jpa.translation.RegisteredAutomatically;
-import org.jeroen.ddd.repository.jpa.translation.SpecificationToPredicateConverter;
+import org.jeroen.ddd.repository.jpa.Registered;
+import org.jeroen.ddd.repository.jpa.SpecificationConverter;
 
 
 /**
@@ -16,8 +16,8 @@ import org.jeroen.ddd.repository.jpa.translation.SpecificationToPredicateConvert
  * @author Jeroen van Schagen
  * @since 28-12-2010
  */
-@RegisteredAutomatically
-public class HasTestMessageConverter implements SpecificationToPredicateConverter<HasTestMessage, Post> {
+@Registered
+public class HasTestMessageConverter implements SpecificationConverter<HasTestMessage, Post> {
 
     /**
      * {@inheritDoc}
