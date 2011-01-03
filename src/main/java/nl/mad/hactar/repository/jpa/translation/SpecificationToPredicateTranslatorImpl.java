@@ -27,7 +27,7 @@ public class SpecificationToPredicateTranslatorImpl implements SpecificationToPr
      * {@inheritDoc}
      */
     @Override
-    public <T> Predicate translateToPredicate(Specification<T> specification, Root<T> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {
+    public <T> Predicate translate(Specification<T> specification, Root<T> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {
         if (specification instanceof PredicateSpecification<?>) {
             // Predicate aware specifications are capable of resolving their own predicate
             return ((PredicateSpecification<T>) specification).toPredicate(root, cq, cb);

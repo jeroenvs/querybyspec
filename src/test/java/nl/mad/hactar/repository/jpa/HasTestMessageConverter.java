@@ -7,19 +7,22 @@ import javax.persistence.criteria.Root;
 
 import nl.mad.hactar.domain.Post;
 import nl.mad.hactar.domain.Post_;
+import nl.mad.hactar.repository.jpa.translation.RegisteredAutomatically;
+import nl.mad.hactar.repository.jpa.translation.SpecificationToPredicateConverter;
 
 /**
- * {@link HasTestMessageSpecification} that knows how to construct a corresponding {@link Predicate}.
+ * Converts a {@link HasTestMessage} into a {@link Predicate}.
  * @author Jeroen van Schagen
  * @since 28-12-2010
  */
-public class HasTestMessageSpecificationJpa extends HasTestMessageSpecification implements PredicateSpecification<Post> {
+@RegisteredAutomatically
+public class HasTestMessageConverter implements SpecificationToPredicateConverter<HasTestMessage, Post> {
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public Predicate toPredicate(Root<Post> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {
+    public Predicate convert(HasTestMessage specification, Root<Post> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {
         return cb.equal(root.get(Post_.message), "test");
     }
 

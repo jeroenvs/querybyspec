@@ -8,7 +8,7 @@ import nl.mad.hactar.specification.ComposableSpecification;
  * @author Jeroen van Schagen
  * @since 28-12-2010
  */
-public class HasTestMessageSpecification extends ComposableSpecification<Post> {
+public class HasTestMessage extends ComposableSpecification<Post> {
 
     /**
      * {@inheritDoc}

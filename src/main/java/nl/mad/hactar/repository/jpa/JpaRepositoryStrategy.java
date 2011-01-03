@@ -14,6 +14,7 @@ import nl.mad.hactar.repository.jpa.translation.SpecificationToPredicateTranslat
 import nl.mad.hactar.specification.Specification;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.GenericTypeResolver;
 import org.springframework.util.Assert;
 
 /**
@@ -32,6 +33,15 @@ public class JpaRepositoryStrategy<T> implements RepositoryStrategy<T> {
 
     /**
      * Construct a new {@link JpaRepositoryStrategy}.
+     */
+    @SuppressWarnings("unchecked")
+    public JpaRepositoryStrategy() {
+        super();
+        this.entityClass = (Class<T>) GenericTypeResolver.resolveTypeArgument(getClass(), RepositoryStrategy.class);
+    }
+
+    /**
+     * Construct a new {@link JpaRepositoryStrategy}.
      * @param entityClass class of the entities being managed
      */
     public JpaRepositoryStrategy(Class<T> entityClass) {
@@ -45,20 +55,15 @@ public class JpaRepositoryStrategy<T> implements RepositoryStrategy<T> {
      */
     @Override
     public List<T> matching(Specification<T> specification) {
-        return createQuery(specification).getResultList();
+        return buildQuery(specification).getResultList();
     }
 
     /**
-     * Construct a new typed query, which selects all entities satisfying a specification.
-     * @param specification describes what our returned entities should match
-     * @return query that is capable of retrieving all matching entities
+     * {@inheritDoc}
      */
-    private TypedQuery<T> createQuery(Specification<T> specification) {
-        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-        CriteriaQuery<T> cq = cb.createQuery(entityClass);
-        Root<T> root = cq.from(entityClass);
-        cq.where(translator.translateToPredicate(specification, root, cq, cb));
-        return entityManager.createQuery(cq);
+    @Override
+    public boolean hasAny(Specification<T> specification) {
+        return !buildQuery(specification).setMaxResults(1).getResultList().isEmpty();
     }
 
     /**
@@ -70,7 +75,7 @@ public class JpaRepositoryStrategy<T> implements RepositoryStrategy<T> {
         CriteriaQuery<Long> cq = cb.createQuery(Long.class);
         Root<T> root = cq.from(entityClass);
         cq.select(cb.count(root));
-        cq.where(translator.translateToPredicate(specification, root, cq, cb));
+        cq.where(translator.translate(specification, root, cq, cb));
         return entityManager.createQuery(cq).getSingleResult();
     }
 
@@ -78,17 +83,13 @@ public class JpaRepositoryStrategy<T> implements RepositoryStrategy<T> {
      * {@inheritDoc}
      */
     @Override
-    public boolean hasAny(Specification<T> specification) {
-        return !createQuery(specification).setMaxResults(1).getResultList().isEmpty();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public <R extends T> R add(R entity) {
-        entityManager.persist(entity);
-        return entity;
+        if (entityManager.contains(entity)) {
+            return entityManager.merge(entity);
+        } else {
+            entityManager.persist(entity);
+            return entity;
+        }
     }
 
     /**
@@ -97,6 +98,21 @@ public class JpaRepositoryStrategy<T> implements RepositoryStrategy<T> {
     @Override
     public void remove(T entity) {
         entityManager.remove(entity);
+    }
+
+    // Query construction
+
+    /**
+     * Construct a new typed query, which selects all entities satisfying a specification.
+     * @param specification describes what our returned entities should match
+     * @return query that is capable of retrieving all matching entities
+     */
+    private TypedQuery<T> buildQuery(Specification<T> specification) {
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<T> cq = cb.createQuery(entityClass);
+        Root<T> root = cq.from(entityClass);
+        cq.where(translator.translate(specification, root, cq, cb));
+        return entityManager.createQuery(cq);
     }
 
     // Attribute access

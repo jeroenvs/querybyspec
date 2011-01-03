@@ -28,7 +28,7 @@ public interface SpecificationToPredicateTranslator {
      * @param cb builder instance used to construct new predicates
      * @return new predicate that enforces our specification logic
      */
-    <T> Predicate translateToPredicate(Specification<T> specification, Root<T> root, CriteriaQuery<?> cq, CriteriaBuilder cb);
+    <T> Predicate translate(Specification<T> specification, Root<T> root, CriteriaQuery<?> cq, CriteriaBuilder cb);
 
     /**
      * Register a converter, enabling it to be used during the conversion of a specification. Whenever a

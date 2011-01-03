@@ -20,8 +20,8 @@ public class OrConverter implements SpecificationToPredicateConverter<OrSpecific
      */
     @Override
     public Predicate convert(OrSpecification<Object> specification, Root<Object> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {
-        Predicate lhsPredicate = translator.translateToPredicate(specification.getLhs(), root, cq, cb);
-        Predicate rhsPredicate = translator.translateToPredicate(specification.getRhs(), root, cq, cb);
+        Predicate lhsPredicate = translator.translate(specification.getLhs(), root, cq, cb);
+        Predicate rhsPredicate = translator.translate(specification.getRhs(), root, cq, cb);
         return cb.or(lhsPredicate, rhsPredicate);
     }
 

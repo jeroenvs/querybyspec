@@ -63,13 +63,13 @@ public class JpaRepositoryStrategyTest {
 
     @Test
     public void testTranslatePredicateSpec() {
-        List<Post> postList = strategy.matching(new HasTestMessageSpecificationJpa());
+        List<Post> postList = strategy.matching(new HasTestMessageJpa());
         Assert.assertEquals(Arrays.asList(post), postList);
     }
 
     @Test
     public void testTranslatedByConverter() {
-        List<Post> postList = strategy.matching(new HasTestMessageSpecification());
+        List<Post> postList = strategy.matching(new HasTestMessage());
         Assert.assertEquals(Arrays.asList(post), postList);
     }
 
