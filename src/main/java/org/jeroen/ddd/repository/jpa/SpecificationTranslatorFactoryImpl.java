@@ -60,7 +60,7 @@ public class SpecificationTranslatorFactoryImpl implements SpecificationTranslat
                 Class<?> converterClass = Class.forName(bd.getBeanClassName());
                 translator.registerConverter(getConverterOfType(converterClass));
             } catch (ClassNotFoundException e) {
-                throw new IllegalStateException(e); // This should never occur
+                throw new IllegalStateException(e);
             }
         }
         return translator;
@@ -75,10 +75,8 @@ public class SpecificationTranslatorFactoryImpl implements SpecificationTranslat
     private SpecificationConverter<?, ?> getConverterOfType(Class<?> converterClass) {
         Object instance = null;
         try {
-            // First attempt the find the converter in our application context
             instance = applicationContext.getBean(converterClass);
         } catch (NoSuchBeanDefinitionException e) {
-            // Whenever no matching bean is found, we return a new nullary instance
             instance = BeanUtils.instantiate(converterClass);
         }
         return (SpecificationConverter<?, ?>) instance;
