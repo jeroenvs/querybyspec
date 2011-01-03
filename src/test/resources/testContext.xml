@@ -39,8 +39,7 @@
     </bean>
     
     <bean id="translatorFactory" class="org.jeroen.ddd.repository.jpa.SpecificationTranslatorFactoryImpl" />
-    <bean factory-bean="translatorFactory" factory-method="createTranslator">
-    	<!-- Base package of our custom converters -->
+    <bean factory-bean="translatorFactory" factory-method="withAnnotatedConverters">
     	<constructor-arg value="org.jeroen.ddd.repository.jpa" />
     </bean>
     
