@@ -50,26 +50,26 @@ public class JpaRepositoryStrategyTest {
     @Test
     public void testTranslationEqual() {
         Specification<Post> hasTestMessage = new EqualSpecification<Post>("message", "test");
-        List<Post> postList = strategy.matches(hasTestMessage);
+        List<Post> postList = strategy.matching(hasTestMessage);
         Assert.assertEquals(Arrays.asList(post), postList);
     }
 
     @Test
     public void testTranslationComposedSpec() {
         Specification<Post> hasTestMessage = new EqualSpecification<Post>("message", "test");
-        List<Post> postList = strategy.matches(not(hasTestMessage));
+        List<Post> postList = strategy.matching(not(hasTestMessage));
         Assert.assertEquals(Arrays.asList(anotherPost), postList);
     }
 
     @Test
     public void testTranslatePredicateSpec() {
-        List<Post> postList = strategy.matches(new HasTestMessageSpecificationJpa());
+        List<Post> postList = strategy.matching(new HasTestMessageSpecificationJpa());
         Assert.assertEquals(Arrays.asList(post), postList);
     }
 
     @Test
     public void testTranslatedByConverter() {
-        List<Post> postList = strategy.matches(new HasTestMessageSpecification());
+        List<Post> postList = strategy.matching(new HasTestMessageSpecification());
         Assert.assertEquals(Arrays.asList(post), postList);
     }
 

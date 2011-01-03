@@ -44,7 +44,7 @@ public class JpaRepositoryStrategy<T> implements RepositoryStrategy<T> {
      * {@inheritDoc}
      */
     @Override
-    public List<T> matches(Specification<T> specification) {
+    public List<T> matching(Specification<T> specification) {
         return createQuery(specification).getResultList();
     }
 
@@ -65,7 +65,7 @@ public class JpaRepositoryStrategy<T> implements RepositoryStrategy<T> {
      * {@inheritDoc}
      */
     @Override
-    public long count(Specification<T> specification) {
+    public long countBy(Specification<T> specification) {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<Long> cq = cb.createQuery(Long.class);
         Root<T> root = cq.from(entityClass);
@@ -78,7 +78,7 @@ public class JpaRepositoryStrategy<T> implements RepositoryStrategy<T> {
      * {@inheritDoc}
      */
     @Override
-    public boolean exists(Specification<T> specification) {
+    public boolean hasAny(Specification<T> specification) {
         return !createQuery(specification).setMaxResults(1).getResultList().isEmpty();
     }
 

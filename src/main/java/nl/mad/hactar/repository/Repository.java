@@ -6,6 +6,6 @@ import nl.mad.hactar.specification.Specification;
 
 public interface Repository<T> {
 
-    List<T> matches(Specification<T> specification);
+    List<T> matching(Specification<T> specification);
 
 }

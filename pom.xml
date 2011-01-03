@@ -11,6 +11,7 @@
 	<groupId>nl.jeroen.ddd</groupId>
 	<artifactId>querybyspec</artifactId>
 	<packaging>jar</packaging>
+	<version>0.1-SNAPSHOT</version>
 	<name>Query by Specification</name>
 
 	<developers>

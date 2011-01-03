@@ -11,14 +11,16 @@ package nl.mad.hactar.repository.jpa.translation;
 public interface SpecificationToPredicateTranslatorFactory {
 
     /**
-     * Construct a new {@link SpecificationToPredicateTranslator} with all default converters.
-     * @return translator instance with all default converters
+     * Construct a new {@link SpecificationToPredicateTranslator} with default converters.
+     * 
+     * @return new translator instance with all default converters
      */
     SpecificationToPredicateTranslator createTranslator();
 
     /**
-     * Construct a new {@link SpecificationToPredicateTranslator} with all default converters,
-     * and the @RegisteredAutomatically annotated custom converters in a certain base package.
+     * Construct a new {@link SpecificationToPredicateTranslator} with default converters
+     * and annotated converter instances. Use this method to quickly register all desired
+     * converters, minimizing the configuration process of our translator.
      * 
      * @param basePackage the base package of our custom converters
      * @return translator instance with all default and annotated converters

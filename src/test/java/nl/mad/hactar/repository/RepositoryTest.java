@@ -15,8 +15,8 @@ public class RepositoryTest {
     public void testInMemory() {
         Post firstPost = new Post().setMessage("first");
         Post secondPost = new Post().setMessage("second");
-        Repository<Post> postRepository = RepositoryFactory.forCollection(Arrays.asList(firstPost, secondPost));
-        List<Post> matchingPosts = postRepository.matches(new EqualSpecification<Post>("message", "first"));
+        Repository<Post> postRepository = new RepositoryImpl<Post>(Arrays.asList(firstPost, secondPost));
+        List<Post> matchingPosts = postRepository.matching(new EqualSpecification<Post>("message", "first"));
         Assert.assertEquals(Arrays.asList(firstPost), matchingPosts);
     }
 

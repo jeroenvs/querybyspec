@@ -42,8 +42,7 @@ public class SpecificationToPredicateTranslatorFactoryImpl implements Specificat
      */
     @Override
     public SpecificationToPredicateTranslator createTranslator(String basePackage) {
-        SpecificationToPredicateTranslator translator = createTranslator();
-        return registerAnnotatedConverters(translator, basePackage);
+        return registerAnnotatedConverters(createTranslator(), basePackage);
     }
 
     /**
@@ -74,16 +73,23 @@ public class SpecificationToPredicateTranslatorFactoryImpl implements Specificat
      * @return a new or existing converter instance
      */
     private SpecificationToPredicateConverter<?, ?> getConverterOfType(Class<?> converterClass) {
-        Object converterInstance = null;
+        Object instance = null;
         try {
             // First attempt the find the converter in our application context
-            converterInstance = applicationContext.getBean(converterClass);
+            instance = applicationContext.getBean(converterClass);
         } catch (NoSuchBeanDefinitionException e) {
-            // Whenever it cannot be found, we return a new nullary instance
-            // Note that the converter should have an accessable nullary constructor
-            converterInstance = BeanUtils.instantiate(converterClass);
+            // Whenever no matching bean is found, we return a new nullary instance
+            instance = BeanUtils.instantiate(converterClass);
         }
-        return (SpecificationToPredicateConverter<?, ?>) converterInstance;
+        return (SpecificationToPredicateConverter<?, ?>) instance;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        this.applicationContext = applicationContext;
     }
 
     // Matches annotated specification-to-predicate converters
@@ -98,16 +104,8 @@ public class SpecificationToPredicateTranslatorFactoryImpl implements Specificat
         public boolean match(MetadataReader metadataReader, MetadataReaderFactory metadataReaderFactory) throws IOException {
             boolean isConverterType = converterTypeFilter.match(metadataReader, metadataReaderFactory);
             boolean isAnnotatedAsRegistered = registeredAnnotationFilter.match(metadataReader, metadataReaderFactory);
-            return isConverterType && isAnnotatedAsRegistered; // Both filters have to match
+            return isConverterType && isAnnotatedAsRegistered;
         }
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        this.applicationContext = applicationContext;
     }
 
 }
