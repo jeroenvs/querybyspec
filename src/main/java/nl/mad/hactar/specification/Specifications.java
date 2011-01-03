@@ -12,14 +12,14 @@ import java.util.List;
  *
  * @param <T> type of domain object referenced in our specification
  */
-public class SpecificationHelper<T> {
+public class Specifications<T> {
     private final Specification<T> specification;
 
     /**
-     * Construct a new {@link SpecificationHelper}.
+     * Construct a new {@link Specifications}.
      * @param specification the specification to provide support for
      */
-    public SpecificationHelper(Specification<T> specification) {
+    public Specifications(Specification<T> specification) {
         super();
         this.specification = specification;
     }

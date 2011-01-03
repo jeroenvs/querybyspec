@@ -14,7 +14,6 @@ import nl.mad.hactar.repository.jpa.translation.SpecificationToPredicateTranslat
 import nl.mad.hactar.specification.Specification;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.GenericTypeResolver;
 import org.springframework.util.Assert;
 
 /**
@@ -27,18 +26,12 @@ import org.springframework.util.Assert;
  * @param <T> the type of our entities being managed
  */
 public class JpaRepositoryStrategy<T> implements RepositoryStrategy<T> {
+    /** Class reference to the entities being managed, used to construct queries. */
     private final Class<T> entityClass;
+    /** Java persistence manager, used to access and modify entities in our data storage. */
     private EntityManager entityManager;
+    /** Translator used to convert our domain specifications into persistence predicates. */
     private SpecificationToPredicateTranslator translator;
-
-    /**
-     * Construct a new {@link JpaRepositoryStrategy}.
-     */
-    @SuppressWarnings("unchecked")
-    public JpaRepositoryStrategy() {
-        super();
-        this.entityClass = (Class<T>) GenericTypeResolver.resolveTypeArgument(getClass(), RepositoryStrategy.class);
-    }
 
     /**
      * Construct a new {@link JpaRepositoryStrategy}.

@@ -9,7 +9,7 @@ import java.util.List;
 import nl.mad.hactar.domain.Post;
 import nl.mad.hactar.specification.ComposableSpecification;
 import nl.mad.hactar.specification.Specification;
-import nl.mad.hactar.specification.SpecificationHelper;
+import nl.mad.hactar.specification.Specifications;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -34,7 +34,7 @@ public class SpecificationTest {
         Post another = new Post().setMessage("another");
         List<Post> posts = Arrays.asList(post, another);
         Specification<Post> specification = equal("message", "test");
-        SpecificationHelper<Post> helper = new SpecificationHelper<Post>(specification);
+        Specifications<Post> helper = new Specifications<Post>(specification);
         Assert.assertFalse(helper.isSatisfiedByAll(posts));
         List<Post> satisfyingPosts = helper.findMatches(posts);
         Assert.assertEquals(Arrays.asList(post), satisfyingPosts);
