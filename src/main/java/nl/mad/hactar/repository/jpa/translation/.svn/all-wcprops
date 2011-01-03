@@ -1,0 +1,65 @@
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/source/!svn/ver/28503/projects/42/hactar/branches/querybyspec/src/main/java/nl/mad/hactar/repository/jpa/translation
+END
+EqualConverter.java
+K 25
+svn:wc:ra_dav:version-url
+V 137
+/source/!svn/ver/28500/projects/42/hactar/branches/querybyspec/src/main/java/nl/mad/hactar/repository/jpa/translation/EqualConverter.java
+END
+SpecificationToPredicateTranslatorImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 161
+/source/!svn/ver/28503/projects/42/hactar/branches/querybyspec/src/main/java/nl/mad/hactar/repository/jpa/translation/SpecificationToPredicateTranslatorImpl.java
+END
+RegisteredAutomatically.java
+K 25
+svn:wc:ra_dav:version-url
+V 146
+/source/!svn/ver/28503/projects/42/hactar/branches/querybyspec/src/main/java/nl/mad/hactar/repository/jpa/translation/RegisteredAutomatically.java
+END
+SpecificationToPredicateTranslatorFactory.java
+K 25
+svn:wc:ra_dav:version-url
+V 164
+/source/!svn/ver/28503/projects/42/hactar/branches/querybyspec/src/main/java/nl/mad/hactar/repository/jpa/translation/SpecificationToPredicateTranslatorFactory.java
+END
+NotConverter.java
+K 25
+svn:wc:ra_dav:version-url
+V 135
+/source/!svn/ver/28501/projects/42/hactar/branches/querybyspec/src/main/java/nl/mad/hactar/repository/jpa/translation/NotConverter.java
+END
+OrConverter.java
+K 25
+svn:wc:ra_dav:version-url
+V 134
+/source/!svn/ver/28501/projects/42/hactar/branches/querybyspec/src/main/java/nl/mad/hactar/repository/jpa/translation/OrConverter.java
+END
+SpecificationToPredicateTranslatorFactoryImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 168
+/source/!svn/ver/28503/projects/42/hactar/branches/querybyspec/src/main/java/nl/mad/hactar/repository/jpa/translation/SpecificationToPredicateTranslatorFactoryImpl.java
+END
+AndConverter.java
+K 25
+svn:wc:ra_dav:version-url
+V 135
+/source/!svn/ver/28501/projects/42/hactar/branches/querybyspec/src/main/java/nl/mad/hactar/repository/jpa/translation/AndConverter.java
+END
+SpecificationToPredicateConverter.java
+K 25
+svn:wc:ra_dav:version-url
+V 156
+/source/!svn/ver/28500/projects/42/hactar/branches/querybyspec/src/main/java/nl/mad/hactar/repository/jpa/translation/SpecificationToPredicateConverter.java
+END
+SpecificationToPredicateTranslator.java
+K 25
+svn:wc:ra_dav:version-url
+V 157
+/source/!svn/ver/28501/projects/42/hactar/branches/querybyspec/src/main/java/nl/mad/hactar/repository/jpa/translation/SpecificationToPredicateTranslator.java
+END

@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/source/!svn/ver/28507/projects/42/hactar/branches/querybyspec/src/test/java/nl/mad/hactar/repository/jpa
+END
+HasTestMessageSpecification.java
+K 25
+svn:wc:ra_dav:version-url
+V 138
+/source/!svn/ver/28507/projects/42/hactar/branches/querybyspec/src/test/java/nl/mad/hactar/repository/jpa/HasTestMessageSpecification.java
+END
+HasTestMessageSpecificationConverter.java
+K 25
+svn:wc:ra_dav:version-url
+V 147
+/source/!svn/ver/28507/projects/42/hactar/branches/querybyspec/src/test/java/nl/mad/hactar/repository/jpa/HasTestMessageSpecificationConverter.java
+END
+HasTestMessageSpecificationJpa.java
+K 25
+svn:wc:ra_dav:version-url
+V 141
+/source/!svn/ver/28507/projects/42/hactar/branches/querybyspec/src/test/java/nl/mad/hactar/repository/jpa/HasTestMessageSpecificationJpa.java
+END
+JpaRepositoryStrategyTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 136
+/source/!svn/ver/28507/projects/42/hactar/branches/querybyspec/src/test/java/nl/mad/hactar/repository/jpa/JpaRepositoryStrategyTest.java
+END
