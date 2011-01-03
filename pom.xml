@@ -8,8 +8,8 @@
 	</parent>
 
 	<!-- Project details -->
-	<groupId>nl.jeroen.ddd</groupId>
-	<artifactId>querybyspec</artifactId>
+	<groupId>nl.ddd</groupId>
+	<artifactId>spec</artifactId>
 	<packaging>jar</packaging>
 	<version>0.1-SNAPSHOT</version>
 	<name>Query by Specification</name>
