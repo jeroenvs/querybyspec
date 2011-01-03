@@ -8,7 +8,7 @@
 	</parent>
 
 	<!-- Project details -->
-	<groupId>nl.ddd</groupId>
+	<groupId>org.jeroen.ddd</groupId>
 	<artifactId>spec</artifactId>
 	<packaging>jar</packaging>
 	<version>0.1-SNAPSHOT</version>
