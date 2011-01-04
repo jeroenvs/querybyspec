@@ -1,7 +1,5 @@
 package org.jeroen.ddd.repository.jpa;
 
-import static org.jeroen.ddd.specification.Specifications.not;
-
 import java.util.Arrays;
 import java.util.List;
 
@@ -9,10 +7,8 @@ import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-
 import org.jeroen.ddd.domain.Post;
-import org.jeroen.ddd.repository.jpa.JpaRepositoryStrategy;
-import org.jeroen.ddd.repository.jpa.SpecificationTranslator;
+import org.jeroen.ddd.specification.ComposableSpecification;
 import org.jeroen.ddd.specification.EqualitySpecification;
 import org.jeroen.ddd.specification.Specification;
 import org.junit.Assert;
@@ -29,9 +25,9 @@ import org.springframework.transaction.annotation.Transactional;
 public class JpaRepositoryStrategyTest {
     private JpaRepositoryStrategy<Post> strategy;
 
-    // Dependencies used inside our strategy
     @PersistenceContext
     private EntityManager em;
+
     @Resource
     private SpecificationTranslator translator;
 
@@ -56,20 +52,27 @@ public class JpaRepositoryStrategyTest {
     }
 
     @Test
-    public void testTranslationComposedSpec() {
-        Specification<Post> hasTestMessage = new EqualitySpecification<Post>("message", "test");
-        List<Post> postList = strategy.matching(not(hasTestMessage));
+    public void testTranslationCompositeSpec() {
+        ComposableSpecification<Post> hasTestMessage = new EqualitySpecification<Post>("message", "test");
+        List<Post> postList = strategy.matching(hasTestMessage.not());
         Assert.assertEquals(Arrays.asList(anotherPost), postList);
     }
 
     @Test
-    public void testTranslatePredicateSpec() {
+    public void testTranslationExtendedSpec() {
+        Specification<Post> hasTestMessage = new ExtendedHasTestMessage();
+        List<Post> postList = strategy.matching(hasTestMessage);
+        Assert.assertEquals(Arrays.asList(post), postList);
+    }
+
+    @Test
+    public void testTranslateJpaSpec() {
         List<Post> postList = strategy.matching(new HasTestMessageJpa());
         Assert.assertEquals(Arrays.asList(post), postList);
     }
 
     @Test
-    public void testTranslatedByConverter() {
+    public void testTranslatedByCustomConverter() {
         List<Post> postList = strategy.matching(new HasTestMessage());
         Assert.assertEquals(Arrays.asList(post), postList);
     }

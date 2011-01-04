@@ -25,20 +25,20 @@ public class SpecificationTranslatorImpl implements SpecificationTranslator {
      * {@inheritDoc}
      */
     @Override
-    public <T> Predicate translateToPredicate(Specification<T> spec, Root<T> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {
-        if (spec instanceof JpaSpecification<?>) {
+    public <T> Predicate translateToPredicate(Specification<T> specification, Root<T> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {
+        if (specification instanceof JpaSpecification<?>) {
             // Predicate aware specifications are capable of resolving their own predicate
-            return ((JpaSpecification<T>) spec).toPredicate(root, cq, cb);
+            return ((JpaSpecification<T>) specification).toPredicate(root, cq, cb);
         } else {
             // Domain oriented specifications require a converter to resolve their predicate
-            SpecificationConverter<Specification<T>, T> converter = findConverter(spec);
+            SpecificationConverter<Specification<T>, T> converter = findConverter(specification);
             // Whenever no converter was found, the predicate cannot be resolved
             if (converter == null) {
-                String message = String.format("Specification [%s] has no registered converters.", spec.getClass().getName());
+                String message = String.format("Specification [%s] has no registered converters.", specification.getClass().getName());
                 throw new IllegalArgumentException(message);
             }
             // Delegate the conversion to our matching converter instance
-            return converter.convert(spec, root, cq, cb);
+            return converter.convert(specification, root, cq, cb);
         }
     }
 
@@ -46,13 +46,18 @@ public class SpecificationTranslatorImpl implements SpecificationTranslator {
      * Retrieve the converter, capable of translating our provided specification.
      * @param <T> type of the entity being used in our specification
      * @param <S> type of specification being converted
-     * @param spec the specification for which a matching converter should be found
+     * @param specification the specification for which a matching converter should be found
      * @return a matching converter, if any
      */
     @SuppressWarnings("unchecked")
-    private <T, S extends Specification<T>> SpecificationConverter<S, T> findConverter(S spec) {
-        // TODO: when no translation is found, look for upper classes of the type specification
-        return (SpecificationConverter<S, T>) converters.get(spec.getClass());
+    private <T, S extends Specification<T>> SpecificationConverter<S, T> findConverter(S specification) {
+        Class<?> specificationClass = specification.getClass();
+        Object converter = null;
+        do {
+            converter = converters.get(specificationClass);
+            // Whenever no matching converter is detected, look for a super class converter
+        } while (converter == null && (specificationClass = specificationClass.getSuperclass()) != null);
+        return (SpecificationConverter<S, T>) converter;
     }
 
     /**
@@ -62,7 +67,7 @@ public class SpecificationTranslatorImpl implements SpecificationTranslator {
     public SpecificationTranslatorImpl registerConverter(SpecificationConverter<?, ?> converter) {
         Class<?> specificationClass = GenericTypeResolver.resolveTypeArguments(converter.getClass(), SpecificationConverter.class)[0];
         converters.put(specificationClass, converter);
-        return this;
+        return this; // Return this instance to enable chaining
     }
 
 }
