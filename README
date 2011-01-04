@@ -12,13 +12,19 @@ List<Person> goldMembers = persons.matching(isGoldMember);
 
 - Specification API
 not(and(or(x,y),z)).isSatisfiedBy(candidate);
-- Repository API
-Repository<Person> persons = new RepositoryImpl<Person>(persons);
-List<Person> matches = persons.matching(specification);
-- JPA repository support
-new JpaStrategy<Person>(Person.class).matching(specification);
 
-== LICENSE:
+- Repository API
+Repository<Person> persons;
+List<Person> matches = persons.matching(specification);
+
+- In-memory strategy
+List<Person> persons;
+new InMemoryRepositoryStrategy<Person>(persons).matching(specification);
+
+- Java persistence strategy
+new JpaRepositoryStrategy<Person>(Person.class).matching(specification);
+
+== LICENSE
 
 (The MIT License)
 
