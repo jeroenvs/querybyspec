@@ -20,9 +20,9 @@ public class AndConverter implements SpecificationConverter<AndSpecification<Obj
      * {@inheritDoc}
      */
     @Override
-    public Predicate convert(AndSpecification<Object> specification, Root<Object> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {
-        Predicate lhsPredicate = translator.translate(specification.getLhs(), root, cq, cb);
-        Predicate rhsPredicate = translator.translate(specification.getRhs(), root, cq, cb);
+    public Predicate convert(AndSpecification<Object> spec, Root<Object> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {
+        Predicate lhsPredicate = translator.translateToPredicate(spec.getLhs(), root, cq, cb);
+        Predicate rhsPredicate = translator.translateToPredicate(spec.getRhs(), root, cq, cb);
         return cb.and(lhsPredicate, rhsPredicate);
     }
 

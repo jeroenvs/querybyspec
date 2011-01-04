@@ -7,15 +7,14 @@ import javax.persistence.criteria.Root;
 
 import org.jeroen.ddd.specification.EqualitySpecification;
 
-
-public class EqualConverter implements SpecificationConverter<EqualitySpecification<Object>, Object> {
+public class EqualityConverter implements SpecificationConverter<EqualitySpecification<Object>, Object> {
 
     /**
      * {@inheritDoc}
      */
     @Override
     public Predicate convert(EqualitySpecification<Object> spec, Root<Object> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {
-        return cb.equal(root.get(spec.getProperty()), spec.getValue());
+        return cb.equal(root.get(spec.getProperty()), spec.getExpectedValue());
     }
 
 }

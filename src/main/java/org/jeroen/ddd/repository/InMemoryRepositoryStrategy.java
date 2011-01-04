@@ -9,7 +9,6 @@ import java.util.Set;
 
 import org.jeroen.ddd.specification.Specification;
 
-
 /**
  * In-memory specific implementation of the {@link RepositoryStrategy} interface. This strategy
  * maintains reference to zero or more entities, retrieving and modifying them manually.
@@ -43,10 +42,10 @@ public class InMemoryRepositoryStrategy<T> implements RepositoryStrategy<T> {
      * {@inheritDoc}
      */
     @Override
-    public List<T> matching(Specification<T> specification) {
+    public List<T> matching(Specification<T> spec) {
         List<T> matches = new ArrayList<T>();
         for (T candidate : entities) {
-            if (specification.isSatisfiedBy(candidate)) {
+            if (spec.isSatisfiedBy(candidate)) {
                 matches.add(candidate);
             }
         }
@@ -57,10 +56,10 @@ public class InMemoryRepositoryStrategy<T> implements RepositoryStrategy<T> {
      * {@inheritDoc}
      */
     @Override
-    public long countBy(Specification<T> specification) {
+    public long countBy(Specification<T> spec) {
         long count = 0;
         for (T candidate : entities) {
-            if (specification.isSatisfiedBy(candidate)) {
+            if (spec.isSatisfiedBy(candidate)) {
                 count++;
             }
         }
@@ -71,9 +70,9 @@ public class InMemoryRepositoryStrategy<T> implements RepositoryStrategy<T> {
      * {@inheritDoc}
      */
     @Override
-    public boolean hasAny(Specification<T> specification) {
+    public boolean hasAny(Specification<T> spec) {
         for (T candidate : entities) {
-            if (specification.isSatisfiedBy(candidate)) {
+            if (spec.isSatisfiedBy(candidate)) {
                 return true;
             }
         }

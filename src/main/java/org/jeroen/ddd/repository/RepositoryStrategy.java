@@ -19,24 +19,24 @@ public interface RepositoryStrategy<T> {
 
     /**
      * Retrieve all entities that match a specification.
-     * @param specification
+     * @param spec
      * @return
      */
-    List<T> matching(Specification<T> specification);
+    List<T> matching(Specification<T> spec);
 
     /**
      * Count how many entities match a specification.
-     * @param specification
+     * @param spec
      * @return
      */
-    long countBy(Specification<T> specification);
+    long countBy(Specification<T> spec);
 
     /**
      * Determine if any of our entities match a specification.
-     * @param specification
+     * @param spec
      * @return
      */
-    boolean hasAny(Specification<T> specification);
+    boolean hasAny(Specification<T> spec);
 
     // Modification
 

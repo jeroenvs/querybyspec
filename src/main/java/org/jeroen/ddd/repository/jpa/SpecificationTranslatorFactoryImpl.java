@@ -30,7 +30,7 @@ public class SpecificationTranslatorFactoryImpl implements SpecificationTranslat
     @Override
     public SpecificationTranslator forDefaultConverters() {
         SpecificationTranslator translator = new SpecificationTranslatorImpl();
-        translator.registerConverter(new EqualConverter());
+        translator.registerConverter(new EqualityConverter());
         translator.registerConverter(new NotConverter(translator));
         translator.registerConverter(new AndConverter(translator));
         translator.registerConverter(new OrConverter(translator));

@@ -20,9 +20,9 @@ public class OrConverter implements SpecificationConverter<OrSpecification<Objec
      * {@inheritDoc}
      */
     @Override
-    public Predicate convert(OrSpecification<Object> specification, Root<Object> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {
-        Predicate lhsPredicate = translator.translate(specification.getLhs(), root, cq, cb);
-        Predicate rhsPredicate = translator.translate(specification.getRhs(), root, cq, cb);
+    public Predicate convert(OrSpecification<Object> spec, Root<Object> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {
+        Predicate lhsPredicate = translator.translateToPredicate(spec.getLhs(), root, cq, cb);
+        Predicate rhsPredicate = translator.translateToPredicate(spec.getRhs(), root, cq, cb);
         return cb.or(lhsPredicate, rhsPredicate);
     }
 

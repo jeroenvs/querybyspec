@@ -8,7 +8,6 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-
 import org.jeroen.ddd.specification.Specification;
 import org.springframework.core.GenericTypeResolver;
 
@@ -26,36 +25,34 @@ public class SpecificationTranslatorImpl implements SpecificationTranslator {
      * {@inheritDoc}
      */
     @Override
-    public <T> Predicate translate(Specification<T> specification, Root<T> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {
-        if (specification instanceof JpaSpecification<?>) {
+    public <T> Predicate translateToPredicate(Specification<T> spec, Root<T> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {
+        if (spec instanceof JpaSpecification<?>) {
             // Predicate aware specifications are capable of resolving their own predicate
-            return ((JpaSpecification<T>) specification).toPredicate(root, cq, cb);
+            return ((JpaSpecification<T>) spec).toPredicate(root, cq, cb);
         } else {
-            // Plain domain specifications require a converter to retrieve their predicate
-            SpecificationConverter<Specification<T>, T> converter = findConverter(specification);
-            // Whenever no converter was found, we cannot resolve the predicate
-            // Inform the developer, by runtime exception, that this converter needs to be registered
+            // Domain oriented specifications require a converter to resolve their predicate
+            SpecificationConverter<Specification<T>, T> converter = findConverter(spec);
+            // Whenever no converter was found, the predicate cannot be resolved
             if (converter == null) {
-                String message = String.format("Specification [%s] has no registered converters.", specification.getClass().getName());
+                String message = String.format("Specification [%s] has no registered converters.", spec.getClass().getName());
                 throw new IllegalArgumentException(message);
             }
             // Delegate the conversion to our matching converter instance
-            return converter.convert(specification, root, cq, cb);
+            return converter.convert(spec, root, cq, cb);
         }
     }
 
     /**
      * Retrieve the converter, capable of translating our provided specification.
-     * 
      * @param <T> type of the entity being used in our specification
      * @param <S> type of specification being converted
-     * @param specification the specification for which a matching converter should be found
+     * @param spec the specification for which a matching converter should be found
      * @return a matching converter, if any
      */
     @SuppressWarnings("unchecked")
-    private <T, S extends Specification<T>> SpecificationConverter<S, T> findConverter(S specification) {
+    private <T, S extends Specification<T>> SpecificationConverter<S, T> findConverter(S spec) {
         // TODO: when no translation is found, look for upper classes of the type specification
-        return (SpecificationConverter<S, T>) converters.get(specification.getClass());
+        return (SpecificationConverter<S, T>) converters.get(spec.getClass());
     }
 
     /**
