@@ -3,9 +3,9 @@
 
 == DESCRIPTION
 
-Provides the ability to query data using DDD specifications:
-Repository<Person> persons = ...;
-Specification<Person> isGoldMember = and(spendsAtleast(500), hasBeenMemberSince(2005));
+Enables users to query the data storage by specification:
+Repository<Person> persons;
+Specification<Person> isGoldMember = and(spendsAtleast(500), memberSince(2005));
 List<Person> goldMembers = persons.matching(isGoldMember);
 
 == FEATURES    
@@ -13,7 +13,7 @@ List<Person> goldMembers = persons.matching(isGoldMember);
 - Specification API
 not(and(or(x,y),z)).isSatisfiedBy(candidate);
 - Repository API
-Repository<Person> persons = RepositoryFactory.forCollection(x);
+Repository<Person> persons = new RepositoryImpl<Person>(persons);
 List<Person> matches = persons.matching(specification);
 - JPA repository support
 new JpaStrategy<Person>(Person.class).matching(specification);
