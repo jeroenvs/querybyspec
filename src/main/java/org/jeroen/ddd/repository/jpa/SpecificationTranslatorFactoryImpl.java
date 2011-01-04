@@ -28,7 +28,7 @@ public class SpecificationTranslatorFactoryImpl implements SpecificationTranslat
      * {@inheritDoc}
      */
     @Override
-    public SpecificationTranslator withDefaultConverters() {
+    public SpecificationTranslator forDefaultConverters() {
         SpecificationTranslator translator = new SpecificationTranslatorImpl();
         translator.registerConverter(new EqualConverter());
         translator.registerConverter(new NotConverter(translator));
@@ -41,8 +41,8 @@ public class SpecificationTranslatorFactoryImpl implements SpecificationTranslat
      * {@inheritDoc}
      */
     @Override
-    public SpecificationTranslator withAnnotatedConverters(String basePackage) {
-        return registerAnnotatedConverters(withDefaultConverters(), basePackage);
+    public SpecificationTranslator forAnnotatedConverters(String basePackage) {
+        return registerAnnotatedConverters(forDefaultConverters(), basePackage);
     }
 
     /**

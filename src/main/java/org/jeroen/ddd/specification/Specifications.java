@@ -1,58 +1,19 @@
 package org.jeroen.ddd.specification;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
 /**
- * Provides default support for specifications.
+ * Controls the construction of specifications.
  * 
  * @author Jeroen van Schagen
- * @since 29-12-2010
- *
- * @param <T> type of domain object referenced in our specification
+ * @since 23-12-2010
  */
-public class Specifications<T> {
-    private final Specification<T> specification;
+public class Specifications {
 
-    /**
-     * Construct a new {@link Specifications}.
-     * @param specification the specification to provide support for
-     */
-    public Specifications(Specification<T> specification) {
-        super();
-        this.specification = specification;
+    public static <T> ComposableSpecification<T> eq(String property, Object value) {
+        return new EqualitySpecification<T>(property, value);
     }
 
-    /**
-     * See if all candidates statisfy the requirements describes in our specification.
-     * @param candidates
-     * @return {@code true} if all candidates statisfy our specification, else {@code false}
-     */
-    public boolean isSatisfiedByAll(Collection<T> candidates) {
-        boolean satisfied = true;
-        for (T candidate : candidates) {
-            if (!specification.isSatisfiedBy(candidate)) {
-                satisfied = false;
-                break;
-            }
-        }
-        return satisfied;
-    }
-
-    /**
-     * Retrieve all candidates that satisfy the requirements described in our specification.
-     * @param candidates
-     * @return only the candidates that satisfy our specification
-     */
-    public List<T> findMatches(Collection<T> candidates) {
-        List<T> result = new ArrayList<T>();
-        for (T candidate : candidates) {
-            if (specification.isSatisfiedBy(candidate)) {
-                result.add(candidate);
-            }
-        }
-        return result;
+    public static <T> ComposableSpecification<T> not(Specification<T> proposition) {
+        return new NotSpecification<T>(proposition);
     }
 
 }

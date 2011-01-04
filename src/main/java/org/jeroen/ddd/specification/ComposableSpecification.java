@@ -12,20 +12,28 @@ public abstract class ComposableSpecification<T> implements Specification<T> {
 
     /**
      * 
-     * @param other
+     * @param rhs
      * @return
      */
-    public Specification<T> and(Specification<T> other) {
-        return new AndSpecification<T>(this, other);
+    public AndSpecification<T> and(Specification<T> rhs) {
+        return new AndSpecification<T>(this, rhs);
     }
 
     /**
      * 
-     * @param other
+     * @param rhs
      * @return
      */
-    public Specification<T> or(Specification<T> other) {
-        return new OrSpecification<T>(this, other);
+    public OrSpecification<T> or(Specification<T> rhs) {
+        return new OrSpecification<T>(this, rhs);
+    }
+
+    /**
+     * 
+     * @return
+     */
+    public NotSpecification<T> not() {
+        return new NotSpecification<T>(this);
     }
 
 }

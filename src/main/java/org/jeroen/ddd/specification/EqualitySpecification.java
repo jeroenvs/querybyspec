@@ -5,11 +5,11 @@ import java.lang.reflect.Field;
 import org.apache.commons.lang.ObjectUtils;
 import org.springframework.util.ReflectionUtils;
 
-public class EqualSpecification<T> extends ComposableSpecification<T> {
+public class EqualitySpecification<T> extends ComposableSpecification<T> {
     private final String property;
     private final Object value;
 
-    public EqualSpecification(String property, Object value) {
+    public EqualitySpecification(String property, Object value) {
         super();
         this.property = property;
         this.value = value;

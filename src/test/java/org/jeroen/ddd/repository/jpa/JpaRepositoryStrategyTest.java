@@ -1,6 +1,6 @@
 package org.jeroen.ddd.repository.jpa;
 
-import static org.jeroen.ddd.specification.SpecificationBuilder.not;
+import static org.jeroen.ddd.specification.Specifications.not;
 
 import java.util.Arrays;
 import java.util.List;
@@ -13,7 +13,7 @@ import javax.persistence.PersistenceContext;
 import org.jeroen.ddd.domain.Post;
 import org.jeroen.ddd.repository.jpa.JpaRepositoryStrategy;
 import org.jeroen.ddd.repository.jpa.SpecificationTranslator;
-import org.jeroen.ddd.specification.EqualSpecification;
+import org.jeroen.ddd.specification.EqualitySpecification;
 import org.jeroen.ddd.specification.Specification;
 import org.junit.Assert;
 import org.junit.Before;
@@ -50,14 +50,14 @@ public class JpaRepositoryStrategyTest {
 
     @Test
     public void testTranslationEqual() {
-        Specification<Post> hasTestMessage = new EqualSpecification<Post>("message", "test");
+        Specification<Post> hasTestMessage = new EqualitySpecification<Post>("message", "test");
         List<Post> postList = strategy.matching(hasTestMessage);
         Assert.assertEquals(Arrays.asList(post), postList);
     }
 
     @Test
     public void testTranslationComposedSpec() {
-        Specification<Post> hasTestMessage = new EqualSpecification<Post>("message", "test");
+        Specification<Post> hasTestMessage = new EqualitySpecification<Post>("message", "test");
         List<Post> postList = strategy.matching(not(hasTestMessage));
         Assert.assertEquals(Arrays.asList(anotherPost), postList);
     }
