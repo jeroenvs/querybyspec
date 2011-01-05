@@ -13,8 +13,8 @@ public class GreaterThanSpecification<T> extends CompareSpecification<T> {
 
     /**
      * Construct a new {@link GreaterThanSpecification}.
-     * @param property determines what property should be checked
-     * @param value candiates are only matched when they property value is above this value
+     * @param property determines what property should be verified
+     * @param value candidates are only matched when their property value is above this value
      */
     public GreaterThanSpecification(String property, Object value) {
         super(property, value, GREATER_THAN_COMPARISON);

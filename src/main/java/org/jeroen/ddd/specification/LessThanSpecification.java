@@ -13,8 +13,8 @@ public class LessThanSpecification<T> extends CompareSpecification<T> {
 
     /**
      * Construct a new {@link LessThanSpecification}.
-     * @param property determines what property should be checked
-     * @param value candiates are only matched when they property value is beneat this value
+     * @param property determines what property should be verified
+     * @param value candidates are only matched when their property value is beneat this value
      */
     public LessThanSpecification(String property, Object value) {
         super(property, value, LESS_THAN_COMPARISON);
