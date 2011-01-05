@@ -6,32 +6,29 @@ import org.springframework.util.ReflectionUtils;
 
 public abstract class ValueBoundSpecification<T> extends ComposableSpecification<T> {
     private final String property;
-    private final Object expectedValue;
+    private final Object value;
 
-    public ValueBoundSpecification(String property, Object expectedValue) {
+    public ValueBoundSpecification(String property, Object value) {
         super();
         this.property = property;
-        this.expectedValue = expectedValue;
+        this.value = value;
     }
+
+    public final boolean isSatisfiedBy(T candidate) {
+        Field field = ReflectionUtils.findField(candidate.getClass(), property);
+        ReflectionUtils.makeAccessible(field);
+        Object candidateValue = ReflectionUtils.getField(field, candidate);
+        return isSatisfyingValue(candidateValue);
+    }
+
+    protected abstract boolean isSatisfyingValue(Object candidateValue);
 
     public String getProperty() {
         return property;
     }
 
-    public Object getExpectedValue() {
-        return expectedValue;
-    }
-
-    /**
-     * Retrieve the actual property value of a candidate instance.
-     * We find and retrieve the value by using reflection.
-     * @param candidate the candidate instance to retrieve from
-     * @return our candidate's current property value
-     */
-    protected Object getCandidateValue(T candidate) {
-        Field field = ReflectionUtils.findField(candidate.getClass(), property);
-        ReflectionUtils.makeAccessible(field);
-        return ReflectionUtils.getField(field, candidate);
+    public Object getValue() {
+        return value;
     }
 
 }

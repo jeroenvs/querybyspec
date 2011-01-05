@@ -1,9 +1,11 @@
 package org.jeroen.ddd.specification;
 
 public abstract class CompareSpecification<T> extends ValueBoundSpecification<T> {
+    private final int expectedCompare;
 
-    public CompareSpecification(String property, Object expectedValue) {
-        super(property, expectedValue);
+    protected CompareSpecification(String property, Object value, int expectedCompare) {
+        super(property, value);
+        this.expectedCompare = expectedCompare;
     }
 
     /**
@@ -11,17 +13,14 @@ public abstract class CompareSpecification<T> extends ValueBoundSpecification<T>
      */
     @Override
     @SuppressWarnings("unchecked")
-    public final boolean isSatisfiedBy(T candidate) {
-        Object candidateValue = this.getCandidateValue(candidate);
+    protected final boolean isSatisfyingValue(Object candidateValue) {
         if (candidateValue instanceof Comparable<?>) {
-            Comparable<Object> comparableValue = (Comparable<Object>) candidateValue;
-            return isCompareSatisfying(comparableValue.compareTo(getExpectedValue()));
+            Comparable<Object> comparable = (Comparable<Object>) candidateValue;
+            return comparable.compareTo(getValue()) == expectedCompare;
         } else {
             String message = String.format("Property '%s' is not comparable.", getProperty());
             throw new IllegalStateException(message);
         }
     }
-
-    protected abstract boolean isCompareSatisfying(int compare);
 
 }

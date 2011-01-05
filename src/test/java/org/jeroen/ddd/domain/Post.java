@@ -1,5 +1,7 @@
 package org.jeroen.ddd.domain;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -22,6 +24,9 @@ public class Post {
 
     @Column(name = "message")
     private String message;
+
+    @Column(name = "creation_date")
+    private Date creationDate;
 
     /**
      * Retrieve identifier.
@@ -46,6 +51,24 @@ public class Post {
      */
     public Post setMessage(String message) {
         this.message = message;
+        return this;
+    }
+
+    /**
+     * Retrieve the entities creation date.
+     * @return current creation date
+     */
+    public Date getCreationDate() {
+        return creationDate;
+    }
+
+    /**
+     * Modify the creation date.
+     * @param creationDate new creation date
+     * @return the current instance, for chaining
+     */
+    public Post setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
         return this;
     }
 

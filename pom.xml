@@ -9,7 +9,7 @@
 
 	<!-- Project details -->
 	<groupId>org.jeroen.ddd</groupId>
-	<artifactId>spec</artifactId>
+	<artifactId>querybyspec</artifactId>
 	<packaging>jar</packaging>
 	<version>0.1-SNAPSHOT</version>
 	<name>Query by Specification</name>
