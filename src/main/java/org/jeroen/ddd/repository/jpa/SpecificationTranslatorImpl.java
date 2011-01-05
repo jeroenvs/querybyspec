@@ -12,14 +12,14 @@ import org.jeroen.ddd.specification.Specification;
 import org.springframework.core.GenericTypeResolver;
 
 /**
- * Default implementation of {@link SpecificationTranslator}, uses an internal map structure
- * to store the conversion logic and is capable of scanning for converters.
+ * Default {@link SpecificationTranslator} implementation which registers and applies
+ * specification converters based on a map data structure.
  * 
  * @author Jeroen van Schagen
  * @since 28-12-2010
  */
 public class SpecificationTranslatorImpl implements SpecificationTranslator {
-    private Map<Class<?>, SpecificationConverter<?, ?>> converters = new HashMap<Class<?>, SpecificationConverter<?, ?>>();
+    private Map<Class<?>, SpecificationConverter<?, ?>> converterMapping = new HashMap<Class<?>, SpecificationConverter<?, ?>>();
 
     /**
      * {@inheritDoc}
@@ -43,7 +43,9 @@ public class SpecificationTranslatorImpl implements SpecificationTranslator {
     }
 
     /**
-     * Retrieve the converter, capable of translating our provided specification.
+     * Retrieve the converter, capable of translating our provided specification. Whenever no converter could
+     * be found for the provided specification, we look for a converter on the specification's super class.
+     * 
      * @param <T> type of the entity being used in our specification
      * @param <S> type of specification being converted
      * @param specification the specification for which a matching converter should be found
@@ -54,8 +56,7 @@ public class SpecificationTranslatorImpl implements SpecificationTranslator {
         Class<?> specificationClass = specification.getClass();
         Object converter = null;
         do {
-            converter = converters.get(specificationClass);
-            // Whenever no matching converter is detected, look for a super class converter
+            converter = converterMapping.get(specificationClass);
         } while (converter == null && (specificationClass = specificationClass.getSuperclass()) != null);
         return (SpecificationConverter<S, T>) converter;
     }
@@ -64,9 +65,9 @@ public class SpecificationTranslatorImpl implements SpecificationTranslator {
      * {@inheritDoc}
      */
     @Override
-    public SpecificationTranslatorImpl registerConverter(SpecificationConverter<?, ?> converter) {
+    public SpecificationTranslator registerConverter(SpecificationConverter<?, ?> converter) {
         Class<?> specificationClass = GenericTypeResolver.resolveTypeArguments(converter.getClass(), SpecificationConverter.class)[0];
-        converters.put(specificationClass, converter);
+        converterMapping.put(specificationClass, converter);
         return this; // Return this instance to enable chaining
     }
 

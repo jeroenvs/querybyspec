@@ -7,7 +7,6 @@ import javax.persistence.criteria.Root;
 
 import org.jeroen.ddd.specification.Specification;
 
-
 /**
  * Capable of translating domain specific {@link Specification} instances, into a query {@link Predicate}.
  * Translating specifications into query criteria enables us to construct, and execute, high performance
@@ -36,8 +35,8 @@ public interface SpecificationTranslator {
      * specification is being converted, ensure that some matching converter instance has been registered.
      * 
      * @param converter new converter instance that should be registered
-     * @return the manager instance, used to enable chaining
+     * @return this translator instance, used to enable chaining
      */
-    SpecificationTranslatorImpl registerConverter(SpecificationConverter<?, ?> converter);
+    SpecificationTranslator registerConverter(SpecificationConverter<?, ?> converter);
 
 }
