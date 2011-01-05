@@ -12,8 +12,10 @@ import org.jeroen.ddd.specification.Specification;
 import org.springframework.core.GenericTypeResolver;
 
 /**
- * Default {@link SpecificationTranslator} implementation which registers and applies
- * specification converters based on a map data structure.
+ * Default {@link SpecificationTranslator} implementation which registers and applies specification converters,
+ * based on a map data structure. Whenever no converter could be found for the provided specification, we look
+ * for a converter on the specification's super class. If, even for the super classes, no converter could be
+ * found, we are forced to throw a runtime exception.
  * 
  * @author Jeroen van Schagen
  * @since 28-12-2010
