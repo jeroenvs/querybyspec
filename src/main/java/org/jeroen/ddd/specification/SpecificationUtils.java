@@ -15,7 +15,7 @@ public final class SpecificationUtils {
     /**
      * See if all candidates statisfy the requirements describes in our specification.
      * @param candidates
-     * @param <T> type of domain object referenced in our specification
+     * @param <T> type of candidates, checked in our specification
      * @return {@code true} if all candidates statisfy our specification, else {@code false}
      */
     public static <T> boolean isSatisfiedByAll(Specification<T> specification, Collection<T> candidates) {
@@ -32,10 +32,10 @@ public final class SpecificationUtils {
     /**
      * Retrieve all candidates that satisfy the requirements described in our specification.
      * @param candidates
-     * @param <T> type of domain object referenced in our specification
+     * @param <T> type of candidates, checked in our specification
      * @return only the candidates that satisfy our specification
      */
-    public static <T> List<T> selectMatches(Specification<T> specification, Collection<T> candidates) {
+    public static <T> List<T> selectMatching(Specification<T> specification, Collection<T> candidates) {
         List<T> result = new ArrayList<T>();
         for (T candidate : candidates) {
             if (specification.isSatisfiedBy(candidate)) {

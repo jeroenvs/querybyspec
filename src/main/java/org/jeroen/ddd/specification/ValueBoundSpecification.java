@@ -4,6 +4,13 @@ import java.lang.reflect.Field;
 
 import org.springframework.util.ReflectionUtils;
 
+/**
+ * 
+ * @author Jeroen van Schagen
+ * @since 25-12-2010
+ *
+ * @param <T> type of candidates being checked
+ */
 public abstract class ValueBoundSpecification<T> extends ComposableSpecification<T> {
     private final String property;
     private final Object value;

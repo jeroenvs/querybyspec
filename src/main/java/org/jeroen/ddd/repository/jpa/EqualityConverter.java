@@ -14,9 +14,9 @@ public class EqualityConverter implements SpecificationConverter<EqualitySpecifi
      * {@inheritDoc}
      */
     @Override
-    public Predicate convert(EqualitySpecification<Object> spec, Root<Object> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {
-        Path<Object> propertyPath = root.get(spec.getProperty());
-        return cb.equal(propertyPath, spec.getValue());
+    public Predicate convert(EqualitySpecification<Object> specification, Root<Object> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {
+        Path<Object> propertyPath = root.get(specification.getProperty());
+        return cb.equal(propertyPath, specification.getValue());
     }
 
 }

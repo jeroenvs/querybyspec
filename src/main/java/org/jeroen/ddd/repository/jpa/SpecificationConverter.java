@@ -7,11 +7,10 @@ import javax.persistence.criteria.Root;
 
 import org.jeroen.ddd.specification.Specification;
 
-
 /**
  * Specifies the conversion logic of a {@link Specification} into {@link Predicate}.
  * 
- * @param <T> type of entity, used in the specification
+ * @param <T> type of candidates, checked in the specification
  * @param <S> type of specification being converted
  * 
  * @author Jeroen van Schagen

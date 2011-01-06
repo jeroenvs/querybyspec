@@ -15,7 +15,7 @@ public interface SpecificationTranslatorFactory {
      * 
      * @return new translator instance with all default converters
      */
-    SpecificationTranslator forDefaultConverters();
+    SpecificationTranslator createWithDefaultConverters();
 
     /**
      * Construct a new {@link SpecificationTranslator} with default converters
@@ -25,6 +25,6 @@ public interface SpecificationTranslatorFactory {
      * @param basePackage the base package of our custom converters
      * @return translator instance with all default and annotated converters
      */
-    SpecificationTranslator forAnnotatedConverters(String basePackage);
+    SpecificationTranslator createWithAnnotatedConverters(String basePackage);
 
 }

@@ -1,5 +1,7 @@
 package org.jeroen.ddd.domain;
 
+import java.util.Date;
+
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
@@ -13,4 +15,5 @@ import javax.persistence.metamodel.StaticMetamodel;
 public class Post_ {
     public static volatile SingularAttribute<Post, Long> id;
     public static volatile SingularAttribute<Post, String> message;
+    public static volatile SingularAttribute<Post, Date> creationDate;
 }

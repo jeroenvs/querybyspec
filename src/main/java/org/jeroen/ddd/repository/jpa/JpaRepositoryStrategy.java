@@ -43,28 +43,41 @@ public class JpaRepositoryStrategy<T> implements RepositoryStrategy<T> {
      * {@inheritDoc}
      */
     @Override
-    public List<T> matching(Specification<T> spec) {
-        return buildQuery(spec).getResultList();
+    public List<T> matching(Specification<T> specification) {
+        return buildQueryFor(specification).getResultList();
+    }
+
+    /**
+     * Construct a new typed query, which selects all entities satisfying a specification.
+     * @param specification describes what our returned entities should match
+     * @return query that is capable of retrieving all matching entities
+     */
+    private TypedQuery<T> buildQueryFor(Specification<T> specification) {
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<T> cq = cb.createQuery(entityClass);
+        Root<T> root = cq.from(entityClass);
+        cq.where(translator.translateToPredicate(specification, root, cq, cb));
+        return entityManager.createQuery(cq);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public boolean hasAny(Specification<T> spec) {
-        return !buildQuery(spec).setMaxResults(1).getResultList().isEmpty();
+    public boolean hasAny(Specification<T> specification) {
+        return !buildQueryFor(specification).setMaxResults(1).getResultList().isEmpty();
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public long countBy(Specification<T> spec) {
+    public long countBy(Specification<T> specification) {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<Long> cq = cb.createQuery(Long.class);
         Root<T> root = cq.from(entityClass);
         cq.select(cb.count(root));
-        cq.where(translator.translateToPredicate(spec, root, cq, cb));
+        cq.where(translator.translateToPredicate(specification, root, cq, cb));
         return entityManager.createQuery(cq).getSingleResult();
     }
 
@@ -87,21 +100,6 @@ public class JpaRepositoryStrategy<T> implements RepositoryStrategy<T> {
     @Override
     public void remove(T entity) {
         entityManager.remove(entity);
-    }
-
-    // Query construction
-
-    /**
-     * Construct a new typed query, which selects all entities satisfying a specification.
-     * @param spec describes what our returned entities should match
-     * @return query that is capable of retrieving all matching entities
-     */
-    private TypedQuery<T> buildQuery(Specification<T> spec) {
-        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-        CriteriaQuery<T> cq = cb.createQuery(entityClass);
-        Root<T> root = cq.from(entityClass);
-        cq.where(translator.translateToPredicate(spec, root, cq, cb));
-        return entityManager.createQuery(cq);
     }
 
     // Attribute access

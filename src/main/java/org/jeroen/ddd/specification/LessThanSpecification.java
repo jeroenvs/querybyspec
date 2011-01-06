@@ -6,7 +6,7 @@ package org.jeroen.ddd.specification;
  * @author Jeroen van Schagen
  * @since 5-1-2011
  *
- * @param <T> type of entity being checked
+ * @param <T> type of candidates being checked
  */
 public class LessThanSpecification<T> extends CompareSpecification<T> {
     private static final int LESS_THAN_COMPARISON = -1;

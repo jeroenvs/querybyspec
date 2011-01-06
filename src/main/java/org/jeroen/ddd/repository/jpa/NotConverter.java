@@ -20,8 +20,8 @@ public class NotConverter implements SpecificationConverter<NotSpecification<Obj
      * {@inheritDoc}
      */
     @Override
-    public Predicate convert(NotSpecification<Object> spec, Root<Object> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {
-        return cb.not(translator.translateToPredicate(spec.getProposition(), root, cq, cb));
+    public Predicate convert(NotSpecification<Object> specification, Root<Object> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {
+        return cb.not(translator.translateToPredicate(specification.getProposition(), root, cq, cb));
     }
 
 }

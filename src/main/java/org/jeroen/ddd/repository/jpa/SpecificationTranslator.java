@@ -22,13 +22,13 @@ public interface SpecificationTranslator {
      * as our provided specification. Returned predicates can only be used on the provided criteria query.
      * 
      * @param <T> type of the entities being described in our specification
-     * @param spec describes the business logic that we should provide in our predicate
+     * @param specification describes the business logic that we should provide in our predicate
      * @param root path to the root of our query, naturally this path has to be created by the query
      * @param cq the query that will hold our returned predicate, can be used to make subqueries
      * @param cb builder instance used to construct new predicates
      * @return new predicate that enforces our specification logic
      */
-    <T> Predicate translateToPredicate(Specification<T> spec, Root<T> root, CriteriaQuery<?> cq, CriteriaBuilder cb);
+    <T> Predicate translateToPredicate(Specification<T> specification, Root<T> root, CriteriaQuery<?> cq, CriteriaBuilder cb);
 
     /**
      * Register a converter, enabling it to be used during the conversion of a specification. Whenever a

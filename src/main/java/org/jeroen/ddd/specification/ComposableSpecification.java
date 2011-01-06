@@ -6,7 +6,7 @@ package org.jeroen.ddd.specification;
  * @author Jeroen van Schagen
  * @since 29-12-2010
  *
- * @param <T> type of domain object being checked
+ * @param <T> type of candidates being checked
  */
 public abstract class ComposableSpecification<T> implements Specification<T> {
 

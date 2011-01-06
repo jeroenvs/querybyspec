@@ -28,7 +28,7 @@ public class SpecificationTranslatorFactoryImpl implements SpecificationTranslat
      * {@inheritDoc}
      */
     @Override
-    public SpecificationTranslator forDefaultConverters() {
+    public SpecificationTranslator createWithDefaultConverters() {
         SpecificationTranslator translator = new SpecificationTranslatorImpl();
         translator.registerConverter(new EqualityConverter());
         translator.registerConverter(new NotConverter(translator));
@@ -41,18 +41,9 @@ public class SpecificationTranslatorFactoryImpl implements SpecificationTranslat
      * {@inheritDoc}
      */
     @Override
-    public SpecificationTranslator forAnnotatedConverters(String basePackage) {
-        return registerAnnotatedConverters(forDefaultConverters(), basePackage);
-    }
-
-    /**
-     * Register all annotated converters in the provided base package.
-     * 
-     * @param translator recieves all scanned converter instances
-     * @param basePackage the base package of our custom converters
-     * @return same translator instance, used for chaining
-     */
-    private SpecificationTranslator registerAnnotatedConverters(SpecificationTranslator translator, String basePackage) {
+    public SpecificationTranslator createWithAnnotatedConverters(String basePackage) {
+        SpecificationTranslator translator = createWithDefaultConverters();
+        // Register any annotated converter in the provided base package
         ClassPathScanningCandidateComponentProvider scanner = new ClassPathScanningCandidateComponentProvider(false);
         scanner.addIncludeFilter(new IsRegisterableConverterFilter());
         for (BeanDefinition bd : scanner.findCandidateComponents(basePackage)) {
@@ -92,16 +83,16 @@ public class SpecificationTranslatorFactoryImpl implements SpecificationTranslat
 
     // Matches annotated specification-to-predicate converters
     private static class IsRegisterableConverterFilter implements TypeFilter {
-        private final TypeFilter converterTypeFilter = new AssignableTypeFilter(SpecificationConverter.class);
-        private final TypeFilter registeredAnnotationFilter = new AnnotationTypeFilter(Registered.class);
+        private static final TypeFilter CONVERTER_TYPE_FILTER = new AssignableTypeFilter(SpecificationConverter.class);
+        private static final TypeFilter REGISTERED_ANNOTATION_FILTER = new AnnotationTypeFilter(Registered.class);
 
         /**
          * {@inheritDoc}
          */
         @Override
         public boolean match(MetadataReader metadataReader, MetadataReaderFactory metadataReaderFactory) throws IOException {
-            boolean isConverterType = converterTypeFilter.match(metadataReader, metadataReaderFactory);
-            boolean isAnnotatedAsRegistered = registeredAnnotationFilter.match(metadataReader, metadataReaderFactory);
+            boolean isConverterType = CONVERTER_TYPE_FILTER.match(metadataReader, metadataReaderFactory);
+            boolean isAnnotatedAsRegistered = REGISTERED_ANNOTATION_FILTER.match(metadataReader, metadataReaderFactory);
             return isConverterType && isAnnotatedAsRegistered;
         }
     }

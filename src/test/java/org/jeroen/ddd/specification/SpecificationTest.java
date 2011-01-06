@@ -31,7 +31,7 @@ public class SpecificationTest {
         List<Post> posts = Arrays.asList(post, another);
         Specification<Post> specification = eq("message", "test");
         Assert.assertFalse(SpecificationUtils.isSatisfiedByAll(specification, posts));
-        List<Post> satisfyingPosts = SpecificationUtils.selectMatches(specification, posts);
+        List<Post> satisfyingPosts = SpecificationUtils.selectMatching(specification, posts);
         Assert.assertEquals(Arrays.asList(post), satisfyingPosts);
         Assert.assertTrue(SpecificationUtils.isSatisfiedByAll(specification, satisfyingPosts));
     }

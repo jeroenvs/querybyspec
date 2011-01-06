@@ -42,10 +42,10 @@ public class InMemoryRepositoryStrategy<T> implements RepositoryStrategy<T> {
      * {@inheritDoc}
      */
     @Override
-    public List<T> matching(Specification<T> spec) {
+    public List<T> matching(Specification<T> specification) {
         List<T> matches = new ArrayList<T>();
         for (T candidate : entities) {
-            if (spec.isSatisfiedBy(candidate)) {
+            if (specification.isSatisfiedBy(candidate)) {
                 matches.add(candidate);
             }
         }
@@ -56,10 +56,10 @@ public class InMemoryRepositoryStrategy<T> implements RepositoryStrategy<T> {
      * {@inheritDoc}
      */
     @Override
-    public long countBy(Specification<T> spec) {
+    public long countBy(Specification<T> specification) {
         long count = 0;
         for (T candidate : entities) {
-            if (spec.isSatisfiedBy(candidate)) {
+            if (specification.isSatisfiedBy(candidate)) {
                 count++;
             }
         }
@@ -70,9 +70,9 @@ public class InMemoryRepositoryStrategy<T> implements RepositoryStrategy<T> {
      * {@inheritDoc}
      */
     @Override
-    public boolean hasAny(Specification<T> spec) {
+    public boolean hasAny(Specification<T> specification) {
         for (T candidate : entities) {
-            if (spec.isSatisfiedBy(candidate)) {
+            if (specification.isSatisfiedBy(candidate)) {
                 return true;
             }
         }
