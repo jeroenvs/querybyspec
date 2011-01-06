@@ -1,27 +1,11 @@
 package org.jeroen.ddd.repository;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.jeroen.ddd.specification.Specification;
 
-/**
- * Strategy used inside a repository.
- * 
- * @author Jeroen van Schagen
- * @since 29-12-2010
- *
- * @param <T> type of domain objects being managed
- */
-public interface RepositoryStrategy<T> {
-
-    // Access
-
-    /**
-     * Retrieve all entities that match a specification.
-     * @param specification
-     * @return
-     */
-    List<T> matching(Specification<T> specification);
+public interface GenericRepository<T> extends FlexibleRepository<T> {
 
     /**
      * Count how many entities match a specification.
@@ -37,8 +21,6 @@ public interface RepositoryStrategy<T> {
      */
     boolean hasAny(Specification<T> specification);
 
-    // Modification
-
     /**
      * Store an entity, enabling it to be accessed.
      * @param <R>
@@ -48,9 +30,24 @@ public interface RepositoryStrategy<T> {
     <R extends T> R add(R entity);
 
     /**
+     * Store a collection of entities, enabling them to be accessed.
+     * @param <R>
+     * @param entities
+     * @return
+     */
+    <R extends T> List<R> addAll(Collection<R> entities);
+
+    /**
      * Remove an entities, preventing it to be accessed.
      * @param entity
      */
     void remove(T entity);
+
+    /**
+     * Remove any entity that matches the provided specification.
+     * @param specification
+     * @return list of removed entities
+     */
+    List<T> removeAny(Specification<T> specification);
 
 }

@@ -1,10 +1,10 @@
 package org.jeroen.ddd.repository;
 
 import java.util.Arrays;
-import java.util.List;
 
 import org.jeroen.ddd.domain.Post;
 import org.jeroen.ddd.specification.EqualitySpecification;
+import org.jeroen.ddd.specification.Specification;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -14,9 +14,14 @@ public class RepositoryTest {
     public void testInMemory() {
         Post firstPost = new Post().setMessage("first");
         Post secondPost = new Post().setMessage("second");
-        Repository<Post> postRepository = new RepositoryImpl<Post>(Arrays.asList(firstPost, secondPost));
-        List<Post> matchingPosts = postRepository.matching(new EqualitySpecification<Post>("message", "first"));
-        Assert.assertEquals(Arrays.asList(firstPost), matchingPosts);
+        GenericRepository<Post> repository = new GenericRepositoryImpl<Post>(new InMemoryRepositoryStrategy<Post>());
+        Specification<Post> specification = new EqualitySpecification<Post>("message", "first");
+        // Repository is empty, thus no matching entities should be found
+        Assert.assertTrue(repository.matching(specification).isEmpty());
+        // Append our 'first' and 'second' post to the repository, enabling them to be found
+        repository.addAll(Arrays.asList(firstPost, secondPost));
+        // Now the 'first' post should be found because it satisfies our equality specification
+        Assert.assertEquals(Arrays.asList(firstPost), repository.matching(specification));
     }
 
 }
