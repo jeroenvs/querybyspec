@@ -12,8 +12,8 @@ public class EqualitySpecification<T> extends ValueBoundSpecification<T> {
      * {@inheritDoc}
      */
     @Override
-    protected boolean isSatisfyingValue(Object candidate) {
-        return ObjectUtils.equals(candidate, getValue());
+    protected boolean isSatisfyingValue(Object candidateValue) {
+        return ObjectUtils.equals(candidateValue, getValue());
     }
 
 }

@@ -14,9 +14,9 @@ public abstract class CompareSpecification<T> extends ValueBoundSpecification<T>
      */
     @Override
     @SuppressWarnings("unchecked")
-    protected final boolean isSatisfyingValue(Object candidate) {
-        if (candidate instanceof Comparable<?>) {
-            return ((Comparable<Object>) candidate).compareTo(getValue()) == expectedComparison;
+    protected final boolean isSatisfyingValue(Object candidateValue) {
+        if (candidateValue instanceof Comparable<?>) {
+            return ((Comparable<Object>) candidateValue).compareTo(getValue()) == expectedComparison;
         } else {
             throw new IllegalStateException(String.format("Property '%s' is not comparable.", getProperty()));
         }
