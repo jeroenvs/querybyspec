@@ -28,7 +28,7 @@ public abstract class ValueBoundSpecification<T> extends ComposableSpecification
         return isSatisfyingValue(candidateValue);
     }
 
-    protected abstract boolean isSatisfyingValue(Object candidateValue);
+    protected abstract boolean isSatisfyingValue(Object candidate);
 
     public String getProperty() {
         return property;
