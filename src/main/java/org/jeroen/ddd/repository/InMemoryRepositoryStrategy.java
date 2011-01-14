@@ -56,7 +56,7 @@ public class InMemoryRepositoryStrategy<T> implements RepositoryStrategy<T> {
      * {@inheritDoc}
      */
     @Override
-    public long countBy(Specification<T> specification) {
+    public long howMany(Specification<T> specification) {
         long count = 0;
         for (T candidate : entities) {
             if (specification.isSatisfiedBy(candidate)) {
@@ -70,7 +70,7 @@ public class InMemoryRepositoryStrategy<T> implements RepositoryStrategy<T> {
      * {@inheritDoc}
      */
     @Override
-    public boolean hasAny(Specification<T> specification) {
+    public boolean containsAny(Specification<T> specification) {
         for (T candidate : entities) {
             if (specification.isSatisfiedBy(candidate)) {
                 return true;

@@ -48,8 +48,8 @@ public class GenericRepository<T> implements FlexibleRepository<T> {
      * @param specification
      * @return
      */
-    public long countBy(Specification<T> specification) {
-        return strategy.countBy(specification);
+    public long howMany(Specification<T> specification) {
+        return strategy.howMany(specification);
     }
 
     /**
@@ -57,8 +57,8 @@ public class GenericRepository<T> implements FlexibleRepository<T> {
      * @param specification
      * @return
      */
-    public boolean hasAny(Specification<T> specification) {
-        return strategy.hasAny(specification);
+    public boolean containsAny(Specification<T> specification) {
+        return strategy.containsAny(specification);
     }
 
     /**
@@ -98,7 +98,7 @@ public class GenericRepository<T> implements FlexibleRepository<T> {
      * @param specification
      * @return list of removed entities
      */
-    public List<T> removeAny(Specification<T> specification) {
+    public List<T> removeWhen(Specification<T> specification) {
         List<T> entities = this.matching(specification);
         for (T entity : entities) {
             this.remove(entity);

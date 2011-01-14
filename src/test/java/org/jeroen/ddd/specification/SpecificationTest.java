@@ -1,6 +1,5 @@
 package org.jeroen.ddd.specification;
 
-import static org.jeroen.ddd.specification.Specifications.eq;
 import static org.jeroen.ddd.specification.Specifications.not;
 
 import java.util.Arrays;
@@ -17,7 +16,7 @@ public class SpecificationTest {
     @Test
     public void testSpecifications() {
         Post post = new Post().setMessage("test");
-        ComposableSpecification<Post> specification = eq("message", "test");
+        ComposableSpecification<Post> specification = new EqualitySpecification<Post>("message", "test");
         Assert.assertTrue(specification.isSatisfiedBy(post));
         Assert.assertFalse(not(specification).isSatisfiedBy(post));
         Assert.assertTrue(specification.or(not(specification)).isSatisfiedBy(post));
@@ -29,7 +28,7 @@ public class SpecificationTest {
         Post post = new Post().setMessage("test");
         Post another = new Post().setMessage("another");
         List<Post> posts = Arrays.asList(post, another);
-        Specification<Post> specification = eq("message", "test");
+        Specification<Post> specification = new EqualitySpecification<Post>("message", "test");
         Assert.assertFalse(SpecificationUtils.isSatisfiedByAll(specification, posts));
         List<Post> satisfyingPosts = SpecificationUtils.selectMatching(specification, posts);
         Assert.assertEquals(Arrays.asList(post), satisfyingPosts);

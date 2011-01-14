@@ -28,14 +28,14 @@ public interface RepositoryStrategy<T> {
      * @param specification
      * @return
      */
-    long countBy(Specification<T> specification);
+    long howMany(Specification<T> specification);
 
     /**
      * Determine if any of our entities match a specification.
      * @param specification
      * @return
      */
-    boolean hasAny(Specification<T> specification);
+    boolean containsAny(Specification<T> specification);
 
     // Modification
 

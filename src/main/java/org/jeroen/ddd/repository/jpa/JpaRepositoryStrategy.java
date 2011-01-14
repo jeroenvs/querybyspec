@@ -44,7 +44,7 @@ public class JpaRepositoryStrategy<T> implements RepositoryStrategy<T> {
      */
     @Override
     public List<T> matching(Specification<T> specification) {
-        return buildQueryFor(specification).getResultList();
+        return buildQuery(specification).getResultList();
     }
 
     /**
@@ -52,7 +52,7 @@ public class JpaRepositoryStrategy<T> implements RepositoryStrategy<T> {
      * @param specification describes what our returned entities should match
      * @return query that is capable of retrieving all matching entities
      */
-    private TypedQuery<T> buildQueryFor(Specification<T> specification) {
+    private TypedQuery<T> buildQuery(Specification<T> specification) {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<T> cq = cb.createQuery(entityClass);
         Root<T> root = cq.from(entityClass);
@@ -64,15 +64,15 @@ public class JpaRepositoryStrategy<T> implements RepositoryStrategy<T> {
      * {@inheritDoc}
      */
     @Override
-    public boolean hasAny(Specification<T> specification) {
-        return !buildQueryFor(specification).setMaxResults(1).getResultList().isEmpty();
+    public boolean containsAny(Specification<T> specification) {
+        return !buildQuery(specification).setMaxResults(1).getResultList().isEmpty();
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public long countBy(Specification<T> specification) {
+    public long howMany(Specification<T> specification) {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<Long> cq = cb.createQuery(Long.class);
         Root<T> root = cq.from(entityClass);
