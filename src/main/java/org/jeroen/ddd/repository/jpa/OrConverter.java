@@ -7,7 +7,6 @@ import javax.persistence.criteria.Root;
 
 import org.jeroen.ddd.specification.OrSpecification;
 
-
 public class OrConverter implements SpecificationConverter<OrSpecification<Object>, Object> {
     private final SpecificationTranslator translator;
 
@@ -20,10 +19,10 @@ public class OrConverter implements SpecificationConverter<OrSpecification<Objec
      * {@inheritDoc}
      */
     @Override
-    public Predicate convert(OrSpecification<Object> specification, Root<Object> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {
-        Predicate lhsPredicate = translator.translateToPredicate(specification.getLhs(), root, cq, cb);
-        Predicate rhsPredicate = translator.translateToPredicate(specification.getRhs(), root, cq, cb);
-        return cb.or(lhsPredicate, rhsPredicate);
+    public Predicate convertToPredicate(OrSpecification<Object> or, Root<Object> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {
+        Predicate lhs = translator.translateToPredicate(or.getLhs(), root, cq, cb);
+        Predicate rhs = translator.translateToPredicate(or.getRhs(), root, cq, cb);
+        return cb.or(lhs, rhs);
     }
 
 }

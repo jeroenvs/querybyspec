@@ -31,6 +31,8 @@ public class SpecificationTranslatorFactoryImpl implements SpecificationTranslat
     public SpecificationTranslator createWithDefaultConverters() {
         SpecificationTranslator translator = new SpecificationTranslatorImpl();
         translator.registerConverter(new EqualityConverter());
+        translator.registerConverter(new GreaterThanConverter());
+        translator.registerConverter(new LessThanConverter());
         translator.registerConverter(new NotConverter(translator));
         translator.registerConverter(new AndConverter(translator));
         translator.registerConverter(new OrConverter(translator));
@@ -43,11 +45,12 @@ public class SpecificationTranslatorFactoryImpl implements SpecificationTranslat
     @Override
     public SpecificationTranslator createWithAnnotatedConverters(String basePackage) {
         SpecificationTranslator translator = createWithDefaultConverters();
-        // Register any annotated converter in the provided base package
+        // Find all annotated converters in the provided base package
         ClassPathScanningCandidateComponentProvider scanner = new ClassPathScanningCandidateComponentProvider(false);
         scanner.addIncludeFilter(new IsRegisterableConverterFilter());
         for (BeanDefinition bd : scanner.findCandidateComponents(basePackage)) {
             try {
+                // Register each found converter instance
                 Class<?> converterClass = Class.forName(bd.getBeanClassName());
                 translator.registerConverter(getConverterOfType(converterClass));
             } catch (ClassNotFoundException e) {
