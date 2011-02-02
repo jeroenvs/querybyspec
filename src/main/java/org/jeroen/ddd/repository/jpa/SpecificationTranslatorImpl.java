@@ -40,7 +40,7 @@ public class SpecificationTranslatorImpl implements SpecificationTranslator {
                 throw new IllegalArgumentException(message);
             }
             // Delegate the conversion to our matching converter instance
-            return converter.convert(specification, root, cq, cb);
+            return converter.convertToPredicate(specification, root, cq, cb);
         }
     }
 

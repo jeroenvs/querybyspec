@@ -2,7 +2,6 @@ package org.jeroen.ddd.repository.jpa;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
@@ -14,9 +13,8 @@ public class EqualityConverter implements SpecificationConverter<EqualitySpecifi
      * {@inheritDoc}
      */
     @Override
-    public Predicate convert(EqualitySpecification<Object> specification, Root<Object> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {
-        Path<Object> propertyPath = root.get(specification.getProperty());
-        return cb.equal(propertyPath, specification.getValue());
+    public Predicate convertToPredicate(EqualitySpecification<Object> eq, Root<Object> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {
+        return cb.equal(root.get(eq.getProperty()), eq.getValue());
     }
 
 }

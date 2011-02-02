@@ -26,7 +26,7 @@ public class Post {
     private String message;
 
     @Column(name = "creation_date")
-    private Date creationDate;
+    private Date creationDate = new Date();
 
     /**
      * Retrieve identifier.

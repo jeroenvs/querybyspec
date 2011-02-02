@@ -7,9 +7,6 @@ import javax.persistence.criteria.Root;
 
 import org.jeroen.ddd.domain.Post;
 import org.jeroen.ddd.domain.Post_;
-import org.jeroen.ddd.repository.jpa.Registered;
-import org.jeroen.ddd.repository.jpa.SpecificationConverter;
-
 
 /**
  * Converts a {@link HasTestMessage} into a {@link Predicate}.
@@ -23,7 +20,7 @@ public class HasTestMessageConverter implements SpecificationConverter<HasTestMe
      * {@inheritDoc}
      */
     @Override
-    public Predicate convert(HasTestMessage specification, Root<Post> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {
+    public Predicate convertToPredicate(HasTestMessage spec, Root<Post> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {
         return cb.equal(root.get(Post_.message), "test");
     }
 

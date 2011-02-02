@@ -1,6 +1,9 @@
 package org.jeroen.ddd.repository;
 
-import java.util.ArrayList;
+import static org.jeroen.ddd.specification.SpecificationUtils.countMatches;
+import static org.jeroen.ddd.specification.SpecificationUtils.isSatisfiedBySome;
+import static org.jeroen.ddd.specification.SpecificationUtils.selectMatches;
+
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
@@ -43,13 +46,7 @@ public class InMemoryRepositoryStrategy<T> implements RepositoryStrategy<T> {
      */
     @Override
     public List<T> matching(Specification<T> specification) {
-        List<T> matches = new ArrayList<T>();
-        for (T candidate : entities) {
-            if (specification.isSatisfiedBy(candidate)) {
-                matches.add(candidate);
-            }
-        }
-        return matches;
+        return selectMatches(specification, entities);
     }
 
     /**
@@ -57,13 +54,7 @@ public class InMemoryRepositoryStrategy<T> implements RepositoryStrategy<T> {
      */
     @Override
     public long howMany(Specification<T> specification) {
-        long count = 0;
-        for (T candidate : entities) {
-            if (specification.isSatisfiedBy(candidate)) {
-                count++;
-            }
-        }
-        return count;
+        return countMatches(specification, entities);
     }
 
     /**
@@ -71,12 +62,7 @@ public class InMemoryRepositoryStrategy<T> implements RepositoryStrategy<T> {
      */
     @Override
     public boolean containsAny(Specification<T> specification) {
-        for (T candidate : entities) {
-            if (specification.isSatisfiedBy(candidate)) {
-                return true;
-            }
-        }
-        return false;
+        return isSatisfiedBySome(specification, entities);
     }
 
     /**

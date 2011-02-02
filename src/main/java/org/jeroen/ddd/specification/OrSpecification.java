@@ -1,9 +1,13 @@
 package org.jeroen.ddd.specification;
 
-public class OrSpecification<T> extends CompositeSpecification<T> {
+public class OrSpecification<T> extends ComposableSpecification<T> {
+    private final Specification<T> lhs;
+    private final Specification<T> rhs;
 
     public OrSpecification(Specification<T> lhs, Specification<T> rhs) {
-        super(lhs, rhs);
+        super();
+        this.lhs = lhs;
+        this.rhs = rhs;
     }
 
     /**
@@ -11,7 +15,15 @@ public class OrSpecification<T> extends CompositeSpecification<T> {
      */
     @Override
     public boolean isSatisfiedBy(T candidate) {
-        return getLhs().isSatisfiedBy(candidate) || getRhs().isSatisfiedBy(candidate);
+        return lhs.isSatisfiedBy(candidate) || rhs.isSatisfiedBy(candidate);
+    }
+
+    public Specification<T> getLhs() {
+        return lhs;
+    }
+
+    public Specification<T> getRhs() {
+        return rhs;
     }
 
 }

@@ -8,7 +8,7 @@ package org.jeroen.ddd.specification;
  *
  * @param <T> type of candidates being checked
  */
-public class GreaterThanSpecification<T> extends CompareSpecification<T> {
+public class GreaterThanSpecification<T> extends ComparisonSpecification<T> {
     private static final int GREATER_THAN_COMPARISON = 1;
 
     /**

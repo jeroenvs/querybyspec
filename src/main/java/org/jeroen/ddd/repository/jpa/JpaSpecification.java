@@ -7,12 +7,10 @@ import javax.persistence.criteria.Root;
 
 import org.jeroen.ddd.specification.Specification;
 
-
 /**
- * Java Persistence API specific implementation of {@link Specification}.
- * Specifications that implement this interface are capable of translating
- * themselves into a {@link Predicate}, which enforces only satisfying entities
- * to be returned.
+ * Specification capable of translating itself into a Java Persistence API specific
+ * {@link Predicate}. The returned predicate enforces a selection criteria on only
+ * entities that satisfy the specification's business rules.
  * 
  * @author Jeroen van Schagen
  * @since 28-12-2010

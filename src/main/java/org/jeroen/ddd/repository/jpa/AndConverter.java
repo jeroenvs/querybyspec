@@ -7,7 +7,6 @@ import javax.persistence.criteria.Root;
 
 import org.jeroen.ddd.specification.AndSpecification;
 
-
 public class AndConverter implements SpecificationConverter<AndSpecification<Object>, Object> {
     private final SpecificationTranslator translator;
 
@@ -20,10 +19,10 @@ public class AndConverter implements SpecificationConverter<AndSpecification<Obj
      * {@inheritDoc}
      */
     @Override
-    public Predicate convert(AndSpecification<Object> specification, Root<Object> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {
-        Predicate lhsPredicate = translator.translateToPredicate(specification.getLhs(), root, cq, cb);
-        Predicate rhsPredicate = translator.translateToPredicate(specification.getRhs(), root, cq, cb);
-        return cb.and(lhsPredicate, rhsPredicate);
+    public Predicate convertToPredicate(AndSpecification<Object> and, Root<Object> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {
+        Predicate lhs = translator.translateToPredicate(and.getLhs(), root, cq, cb);
+        Predicate rhs = translator.translateToPredicate(and.getRhs(), root, cq, cb);
+        return cb.and(lhs, rhs);
     }
 
 }
