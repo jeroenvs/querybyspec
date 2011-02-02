@@ -19,16 +19,14 @@ import org.jeroen.ddd.specification.Specification;
 public interface SpecificationConverter<S extends Specification<T>, T> {
 
     /**
-     * Convert some {@link Specification} into a Java Persistence API {@link Predicate}.
-     * The returned predicate enforces a selection criteria on only entities that satisfy
-     * the specification's business rules.
+     * Convert a {@link Specification} into a Java Persistence API {@link Predicate}.
      * 
      * @param specification our business specification being converted
      * @param root path to the root of our query
      * @param cq query that will hold our specification criteria
      * @param cb criteria builder, used to construct predicates
-     * @return our constructed predicate, enforcing only matching entities to be selected
+     * @return the converted predicate
      */
-    Predicate convertToPredicate(S specification, Root<T> root, CriteriaQuery<?> cq, CriteriaBuilder cb);
+    Predicate convert(S specification, Root<T> root, CriteriaQuery<?> cq, CriteriaBuilder cb);
 
 }

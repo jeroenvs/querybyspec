@@ -12,25 +12,30 @@ import java.util.List;
  */
 public final class SpecificationUtils {
 
+    /**
+     * See if all candidates statisfy the requirements describes in our specification.
+     * @param candidates
+     * @param <T> type of candidates, checked in our specification
+     * @return {@code true} if all candidates statisfy our specification, else {@code false}
+     */
     public static <T> boolean isSatisfiedByAll(Specification<T> specification, Collection<T> candidates) {
+        boolean satisfied = true;
         for (T candidate : candidates) {
             if (!specification.isSatisfiedBy(candidate)) {
-                return false;
+                satisfied = false;
+                break;
             }
         }
-        return true;
+        return satisfied;
     }
 
-    public static <T> boolean isSatisfiedBySome(Specification<T> specification, Collection<T> candidates) {
-        for (T candidate : candidates) {
-            if (specification.isSatisfiedBy(candidate)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public static <T> List<T> selectMatches(Specification<T> specification, Collection<T> candidates) {
+    /**
+     * Retrieve all candidates that satisfy the requirements described in our specification.
+     * @param candidates
+     * @param <T> type of candidates, checked in our specification
+     * @return only the candidates that satisfy our specification
+     */
+    public static <T> List<T> selectMatching(Specification<T> specification, Collection<T> candidates) {
         List<T> result = new ArrayList<T>();
         for (T candidate : candidates) {
             if (specification.isSatisfiedBy(candidate)) {
@@ -38,16 +43,6 @@ public final class SpecificationUtils {
             }
         }
         return result;
-    }
-
-    public static <T> long countMatches(Specification<T> specification, Collection<T> candidates) {
-        long count = 0;
-        for (T candidate : candidates) {
-            if (specification.isSatisfiedBy(candidate)) {
-                count++;
-            }
-        }
-        return count;
     }
 
     // Hide constructor to prevent initialization

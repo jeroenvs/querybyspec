@@ -7,6 +7,7 @@ import javax.persistence.criteria.Root;
 
 import org.jeroen.ddd.specification.NotSpecification;
 
+
 public class NotConverter implements SpecificationConverter<NotSpecification<Object>, Object> {
     private final SpecificationTranslator translator;
 
@@ -19,8 +20,8 @@ public class NotConverter implements SpecificationConverter<NotSpecification<Obj
      * {@inheritDoc}
      */
     @Override
-    public Predicate convertToPredicate(NotSpecification<Object> not, Root<Object> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {
-        return cb.not(translator.translateToPredicate(not.getProposition(), root, cq, cb));
+    public Predicate convert(NotSpecification<Object> specification, Root<Object> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {
+        return cb.not(translator.translateToPredicate(specification.getProposition(), root, cq, cb));
     }
 
 }

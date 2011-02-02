@@ -16,7 +16,7 @@ import org.jeroen.ddd.specification.Specification;
  *
  * @param <T> type of entities being managed
  */
-public class GenericRepository<T> implements ParameterizedRepository<T> {
+public class GenericRepository<T> implements FlexibleRepository<T> {
     private RepositoryStrategy<T> strategy;
 
     /**

@@ -14,7 +14,7 @@ import org.jeroen.ddd.specification.Specification;
  */
 public interface RepositoryStrategy<T> {
 
-    // Retrieval
+    // Access
 
     /**
      * Retrieve all entities that match a specification.
