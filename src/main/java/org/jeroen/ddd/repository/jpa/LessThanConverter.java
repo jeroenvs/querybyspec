@@ -5,7 +5,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-import org.jeroen.ddd.specification.LessThanSpecification;
+import org.jeroen.ddd.specification.basic.LessThanSpecification;
 
 public class LessThanConverter implements SpecificationConverter<LessThanSpecification<Object>, Object> {
 

@@ -3,8 +3,8 @@ package org.jeroen.ddd.repository;
 import java.util.Arrays;
 
 import org.jeroen.ddd.domain.Post;
-import org.jeroen.ddd.specification.EqualitySpecification;
 import org.jeroen.ddd.specification.Specification;
+import org.jeroen.ddd.specification.basic.EqualitySpecification;
 import org.junit.Assert;
 import org.junit.Test;
 

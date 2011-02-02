@@ -1,4 +1,4 @@
-package org.jeroen.ddd.specification;
+package org.jeroen.ddd.specification.basic;
 
 /**
  * Determine if a property value is less than the specified value.
@@ -8,7 +8,7 @@ package org.jeroen.ddd.specification;
  *
  * @param <T> type of candidates being checked
  */
-public class LessThanSpecification<T> extends ComparisonSpecification<T> {
+public class LessThanSpecification<T> extends CompareToSpecification<T> {
     private static final int LESS_THAN_COMPARISON = -1;
 
     /**

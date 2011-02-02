@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 
 import org.jeroen.ddd.domain.Post;
+import org.jeroen.ddd.specification.basic.GreaterThanSpecification;
 import org.junit.Assert;
 import org.junit.Test;
 

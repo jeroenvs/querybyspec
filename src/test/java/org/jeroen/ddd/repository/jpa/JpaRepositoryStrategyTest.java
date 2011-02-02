@@ -11,10 +11,10 @@ import javax.persistence.PersistenceContext;
 
 import org.jeroen.ddd.domain.Post;
 import org.jeroen.ddd.specification.ComposableSpecification;
-import org.jeroen.ddd.specification.EqualitySpecification;
-import org.jeroen.ddd.specification.GreaterThanSpecification;
-import org.jeroen.ddd.specification.LessThanSpecification;
 import org.jeroen.ddd.specification.Specification;
+import org.jeroen.ddd.specification.basic.EqualitySpecification;
+import org.jeroen.ddd.specification.basic.GreaterThanSpecification;
+import org.jeroen.ddd.specification.basic.LessThanSpecification;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

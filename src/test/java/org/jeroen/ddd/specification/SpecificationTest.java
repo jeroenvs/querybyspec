@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.jeroen.ddd.domain.Post;
+import org.jeroen.ddd.specification.basic.EqualitySpecification;
 import org.junit.Assert;
 import org.junit.Test;
 

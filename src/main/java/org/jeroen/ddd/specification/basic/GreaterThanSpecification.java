@@ -1,4 +1,4 @@
-package org.jeroen.ddd.specification;
+package org.jeroen.ddd.specification.basic;
 
 /**
  * Determine if a property value is greater than the specified value.
@@ -8,7 +8,7 @@ package org.jeroen.ddd.specification;
  *
  * @param <T> type of candidates being checked
  */
-public class GreaterThanSpecification<T> extends ComparisonSpecification<T> {
+public class GreaterThanSpecification<T> extends CompareToSpecification<T> {
     private static final int GREATER_THAN_COMPARISON = 1;
 
     /**

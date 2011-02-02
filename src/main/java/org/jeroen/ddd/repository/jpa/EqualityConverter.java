@@ -5,7 +5,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-import org.jeroen.ddd.specification.EqualitySpecification;
+import org.jeroen.ddd.specification.basic.EqualitySpecification;
 
 public class EqualityConverter implements SpecificationConverter<EqualitySpecification<Object>, Object> {
 
