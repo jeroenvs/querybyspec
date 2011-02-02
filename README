@@ -11,7 +11,7 @@ List<Person> goldMembers = persons.matching(isGoldMember);
 == FEATURES    
 
 - Specification library
-Provides a wide variaty of default specifications, based on the type-safe specification
+Provides a wide variety of default specifications, based on the type-safe specification
 interface, as described by Martin Fowler. These specifications, for one, include:
  * equality
  * compare (gt,lt)
