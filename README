@@ -5,19 +5,42 @@
 
 Enables users to query the data storage by specification:
 Repository<Person> persons = new PersonRepository();
-Specification<Person> isGoldMember = and(spendsAtleast(500), memberSince(2005));
+Specification<Person> isGoldMember = spendsAtleast(500).and(memberSince(2005));
 List<Person> goldMembers = persons.matching(isGoldMember);
 
 == FEATURES    
 
-- Specification API
+- Specification library
+Provides a wide variaty of default specifications, based on the type-safe specification
+interface, as described by Martin Fowler. These specifications, for one, include:
+ * equality
+ * compare (gt,lt)
+ * composition (and,or,not)
+ 
 not(and(or(x,y),z)).isSatisfiedBy(candidate);
-- Repository API
+ 
+In addition we provide a utility class for specifications, which allows specifications
+to be used for the selection and counting on iterable objects. 
+
+Specifications.findAllSatisfying(isGoldMember, members);
+Specifications.countAllSatisfying(isGoldMember, members);
+Specifications.isSatisfiedByAll(isGoldMember, members);
+Specifications.isSatisfiedBySome(isGoldMember, members);
+
+- Repository library
+Repositories can be used to find entities, matching a certain specification.
+This allows us to do the following:
+
 Repository<Person> persons;
 List<Person> matches = persons.matching(spec);
-- In memory strategy
+
+Each repository can be use of "repository strategies", which describes how
+entities are retrieved and selected. By default our library provides two
+repository strategies:
+
+* In memory strategy
 new InMemoryRepositoryStrategy<Person>(collection).matching(spec);
-- Java persistence strategy
+* Java persistence strategy
 new JpaRepositoryStrategy<Person>(Person.class).matching(spec);
 
 == LICENSE
