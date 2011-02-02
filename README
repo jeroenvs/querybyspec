@@ -34,9 +34,7 @@ This allows us to do the following:
 Repository<Person> persons;
 List<Person> matches = persons.matching(spec);
 
-Each repository can be use of "repository strategies", which describes how
-entities are retrieved and selected. By default our library provides two
-repository strategies:
+By default our library provides two repository strategies:
 
 * In memory strategy
 new InMemoryRepositoryStrategy<Person>(collection).matching(spec);
