@@ -1,8 +1,8 @@
 package org.jeroen.ddd.repository;
 
-import static org.jeroen.ddd.specification.SpecificationUtils.countMatches;
-import static org.jeroen.ddd.specification.SpecificationUtils.isSatisfiedBySome;
-import static org.jeroen.ddd.specification.SpecificationUtils.selectMatches;
+import static org.jeroen.ddd.specification.Specifications.countAllSatisfying;
+import static org.jeroen.ddd.specification.Specifications.findAllSatisfying;
+import static org.jeroen.ddd.specification.Specifications.isSatisfiedBySome;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -46,7 +46,7 @@ public class InMemoryRepositoryStrategy<T> implements RepositoryStrategy<T> {
      */
     @Override
     public List<T> matching(Specification<T> specification) {
-        return selectMatches(specification, entities);
+        return findAllSatisfying(specification, entities);
     }
 
     /**
@@ -54,7 +54,7 @@ public class InMemoryRepositoryStrategy<T> implements RepositoryStrategy<T> {
      */
     @Override
     public long howMany(Specification<T> specification) {
-        return countMatches(specification, entities);
+        return countAllSatisfying(specification, entities);
     }
 
     /**

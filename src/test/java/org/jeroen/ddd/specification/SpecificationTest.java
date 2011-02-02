@@ -29,10 +29,10 @@ public class SpecificationTest {
         Post another = new Post().setMessage("another");
         List<Post> posts = Arrays.asList(post, another);
         Specification<Post> specification = new EqualitySpecification<Post>("message", "test");
-        Assert.assertFalse(SpecificationUtils.isSatisfiedByAll(specification, posts));
-        List<Post> satisfyingPosts = SpecificationUtils.selectMatches(specification, posts);
+        Assert.assertFalse(Specifications.isSatisfiedByAll(specification, posts));
+        List<Post> satisfyingPosts = Specifications.findAllSatisfying(specification, posts);
         Assert.assertEquals(Arrays.asList(post), satisfyingPosts);
-        Assert.assertTrue(SpecificationUtils.isSatisfiedByAll(specification, satisfyingPosts));
+        Assert.assertTrue(Specifications.isSatisfiedByAll(specification, satisfyingPosts));
     }
 
 }
