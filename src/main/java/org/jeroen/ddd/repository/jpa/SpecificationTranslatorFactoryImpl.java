@@ -16,27 +16,24 @@ import org.springframework.core.type.filter.AssignableTypeFilter;
 import org.springframework.core.type.filter.TypeFilter;
 
 /**
- * Default implementation of {@link SpecificationTranslatorFactory}.
+ * Spring oriented implementation of {@link SpecificationTranslatorFactory}.
+ * Allows converters to be scanned from the classpath, using a specific base
+ * package. Whenever converter classes are found, it will attempt to retrieve
+ * a bean from the current application context. In case no corresponding bean
+ * is found, a new nullary converter instance is created.
  * 
  * @author Jeroen van Schagen
  * @since 30-12-2010
  */
-public class SpecificationTranslatorFactoryImpl implements SpecificationTranslatorFactory, ApplicationContextAware {
+public class SpecificationTranslatorFactoryImpl extends SpecificationTranslatorFactory implements ApplicationContextAware {
     private ApplicationContext applicationContext;
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public SpecificationTranslator createWithDefaultConverters() {
-        SpecificationTranslator translator = new SpecificationTranslatorImpl();
-        translator.registerConverter(new EqualityConverter());
-        translator.registerConverter(new GreaterThanConverter());
-        translator.registerConverter(new LessThanConverter());
-        translator.registerConverter(new NotConverter(translator));
-        translator.registerConverter(new AndConverter(translator));
-        translator.registerConverter(new OrConverter(translator));
-        return translator;
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        this.applicationContext = applicationContext;
     }
 
     /**
@@ -52,7 +49,7 @@ public class SpecificationTranslatorFactoryImpl implements SpecificationTranslat
             try {
                 // Register each found converter instance
                 Class<?> converterClass = Class.forName(bd.getBeanClassName());
-                translator.registerConverter(getConverterOfType(converterClass));
+                translator.registerConverter(findOrCreateConverter(converterClass));
             } catch (ClassNotFoundException e) {
                 throw new IllegalStateException(e);
             }
@@ -66,7 +63,7 @@ public class SpecificationTranslatorFactoryImpl implements SpecificationTranslat
      * @param converterClass the type of our converter
      * @return a new or existing converter instance
      */
-    private SpecificationConverter<?, ?> getConverterOfType(Class<?> converterClass) {
+    private SpecificationConverter<?, ?> findOrCreateConverter(Class<?> converterClass) {
         Object instance = null;
         try {
             instance = applicationContext.getBean(converterClass);
@@ -74,14 +71,6 @@ public class SpecificationTranslatorFactoryImpl implements SpecificationTranslat
             instance = BeanUtils.instantiate(converterClass);
         }
         return (SpecificationConverter<?, ?>) instance;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        this.applicationContext = applicationContext;
     }
 
     // Matches annotated specification-to-predicate converters

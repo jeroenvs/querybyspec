@@ -8,13 +8,22 @@ package org.jeroen.ddd.repository.jpa;
  * @author Jeroen van Schagen
  * @since 30-12-2010
  */
-public interface SpecificationTranslatorFactory {
+public abstract class SpecificationTranslatorFactory {
 
     /**
      * Construct a new {@link SpecificationTranslator} with default converters.
      * @return new translator instance with all default converters
      */
-    SpecificationTranslator createWithDefaultConverters();
+    public SpecificationTranslator createWithDefaultConverters() {
+        SpecificationTranslator translator = new SpecificationTranslatorImpl();
+        translator.registerConverter(new EqualityConverter());
+        translator.registerConverter(new GreaterThanConverter());
+        translator.registerConverter(new LessThanConverter());
+        translator.registerConverter(new NotConverter(translator));
+        translator.registerConverter(new AndConverter(translator));
+        translator.registerConverter(new OrConverter(translator));
+        return translator;
+    }
 
     /**
      * Construct a new {@link SpecificationTranslator} with default converters and
@@ -23,6 +32,6 @@ public interface SpecificationTranslatorFactory {
      * @param basePackage the base package of our custom converters
      * @return translator instance with all default and annotated converters
      */
-    SpecificationTranslator createWithAnnotatedConverters(String basePackage);
+    public abstract SpecificationTranslator createWithAnnotatedConverters(String basePackage);
 
 }
